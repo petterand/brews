@@ -1,6 +1,6 @@
 import Vue from 'vue';
-import { parseString } from 'xml2js';
 import template from './template.tpl.html';
+import BeerXmlService from '../../services/BeerXmlService';
 
 
 function fileDropHandler(e) {
@@ -10,9 +10,7 @@ function fileDropHandler(e) {
         var reader = new FileReader();
         reader.onload = (e) => {
             var content = e.target.result;
-            parseString(content, (err, result) => {
-                console.log(result);
-            });
+
         }
         reader.readAsText(file);
         console.log(file);
