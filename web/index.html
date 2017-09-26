@@ -2,15 +2,15 @@
 
 <head>
     <title>Brews</title>
-    <link href="out/style.css" />
+    <link href="style.css" rel="stylesheet" />
 </head>
 
 <body>
     <div id="app">
         <add-brew></add-brew>
-        <brews></brews>
+        <brews :brews="recipes"></brews>
     </div>
-    <script src="out/bundle.js"></script>
+    <script src="bundle.js"></script>
 </body>
 
 </html>

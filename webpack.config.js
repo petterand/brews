@@ -1,3 +1,6 @@
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+
 module.exports = {
     entry: [__dirname + '/web/app.js', __dirname + '/web/style/style.less'],
     output: {
@@ -34,14 +37,27 @@ module.exports = {
             },
             {
                 test: /\.less$/,
-                use: [{
-                    loader: "style-loader"
-                }, {
-                    loader: "css-loader"
-                }, {
-                    loader: "less-loader"
-                }]
+                use: ExtractTextPlugin.extract({
+                    fallback: 'style-loader',
+                    use: ['css-loader', 'less-loader']
+                })
             }
         ]
-    }
+    },
+    plugins: [
+        new ExtractTextPlugin('style.css'),
+        new CopyWebpackPlugin([
+            { from: 'web/index.html', to: 'index.html' }
+        ])
+    ]
 }
+
+
+
+// [{
+//     loader: "style-loader"
+// }, {
+//     loader: "css-loader"
+// }, {
+//     loader: "less-loader"
+// }]
