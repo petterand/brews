@@ -5,22 +5,11 @@ module.exports = {
     entry: [__dirname + '/web/app.js', __dirname + '/web/style/style.less'],
     output: {
         path: __dirname + '/web/out/',
-        filename: 'bundle.js',
-        publicPath: '/out/'
+        filename: 'bundle.js'
     },
     resolve: {
         alias: {
             'vue$': 'vue/dist/vue.esm.js'
-        }
-    },
-    devtool: 'source-map',
-    devServer: {
-        contentBase: __dirname + '/web/',
-        publicPath: '/out/',
-        inline: true,
-        port: 9099,
-        proxy: {
-            '/api': 'http://localhost:8888'
         }
     },
     module: {
@@ -41,14 +30,27 @@ module.exports = {
             },
             {
                 test: /\.less$/,
-                use: [{
-                    loader: "style-loader" // creates style nodes from JS strings
-                }, {
-                    loader: "css-loader" // translates CSS into CommonJS
-                }, {
-                    loader: "less-loader" // compiles Less to CSS
-                }]
+                use: ExtractTextPlugin.extract({
+                    fallback: 'style-loader',
+                    use: ['css-loader', 'less-loader']
+                })
             }
         ]
-    }
+    },
+    plugins: [
+        new ExtractTextPlugin('style.css'),
+        new CopyWebpackPlugin([
+            { from: 'web/prod.html', to: 'index.html' }
+        ])
+    ]
 }
+
+
+
+// [{
+//     loader: "style-loader"
+// }, {
+//     loader: "css-loader"
+// }, {
+//     loader: "less-loader"
+// }]

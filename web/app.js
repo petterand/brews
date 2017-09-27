@@ -12,6 +12,7 @@ var recipes = [];
 new Vue({
     el: '#app',
     created() {
+        console.log('hohoho');
         this.$http.get('/api/recipes').then((response) => {
             console.log(response.body);
             this.recipes = response.body;
