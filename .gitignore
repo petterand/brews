@@ -1,4 +1,4 @@
 node_modules
 web/out
 .vscode
-configs/server-config.js
+app/configs/server-config.js

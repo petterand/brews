@@ -39,11 +39,18 @@ function formatJson(json) {
     resultObject.fermentables = getFermentables(root.FERMENTABLES ? root.FERMENTABLES[0].FERMENTABLE : []);
     resultObject.hops = getHops(root.HOPS ? root.HOPS[0].HOP : []);
     resultObject.yeasts = getYeasts(root.YEASTS ? root.YEASTS[0].YEAST : []);
-    if (root.MISCS && root.MISCS[0].trim()) {
+    if (root.MISCS && valueIsObject(root.MISCS[0])) {
         resultObject.miscs = getMiscs(root.MISCS[0].MISC);
     }
 
     return resultObject;
+}
+
+function valueIsObject(value) {
+    if (typeof value === 'object') {
+        return true;
+    }
+    return false;
 }
 
 function getMashSteps(json) {

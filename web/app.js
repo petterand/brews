@@ -19,9 +19,10 @@ new Vue({
         });
 
         eventHub.$on('RECIPE_ADDED', (recipe) => {
-            this.recipes.push(recipe);
             this.$http.post('/api/recipe', recipe).then((response) => {
-
+                this.recipes.push(recipe);
+            }, (err) => {
+                alert('FAILED TO ADD RECIPE');
             });
         });
 
