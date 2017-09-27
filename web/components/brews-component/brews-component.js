@@ -5,16 +5,7 @@ import eventHub from '../../services/EventHub';
 
 var BrewsComponent = Vue.extend({
     template,
-    props: ['brews'],
-    created() {
-        eventHub.$on('RECIPE_ADDED', function (recipe) {
-            this.brews.push(recipe);
-        });
-    },
-
-    data: function () {
-        return {}
-    }
+    props: ['brews']
 })
 
 export default BrewsComponent;

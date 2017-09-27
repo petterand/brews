@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import VueResource from 'vue-resource';
+import eventHub from './services/EventHub';
 import BrewsComponent from './components/brews-component/brews-component';
 import AddBrewsComponent from './components/add-brew/add-brew';
 
@@ -12,11 +13,18 @@ var recipes = [];
 new Vue({
     el: '#app',
     created() {
-        console.log('hohoho');
-        this.$http.get('/api/recipes').then((response) => {
+        this.$http.get('/api/recipe').then((response) => {
             console.log(response.body);
             this.recipes = response.body;
         });
+
+        eventHub.$on('RECIPE_ADDED', (recipe) => {
+            this.recipes.push(recipe);
+            this.$http.post('/api/recipe', recipe).then((response) => {
+
+            });
+        });
+
     },
     data: {
         recipes: recipes
