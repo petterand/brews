@@ -5,6 +5,7 @@ import Q from 'q';
 function parse(xml) {
     var defer = Q.defer();
     parseString(xml, (err, result) => {
+        console.log(result);
         defer.resolve(formatJson(result));
     });
     return defer.promise;
@@ -42,6 +43,9 @@ function formatJson(json) {
     if (root.MISCS && valueIsObject(root.MISCS[0])) {
         resultObject.miscs = getMiscs(root.MISCS[0].MISC);
     }
+    if (root.STYLE && root.STYLE[0]) {
+        resultObject.style = getStyle(root.STYLE[0]);
+    }
 
     return resultObject;
 }
@@ -51,6 +55,25 @@ function valueIsObject(value) {
         return true;
     }
     return false;
+}
+
+function getStyle(style) {
+    return {
+        name: style.NAME[0],
+        version: style.VERSION[0],
+        categoryNumber: style.CATEGORY_NUMBER[0],
+        styleLetter: style.STYLE_LETTER[0],
+        styleGuide: style.STYLE_GUIDE[0],
+        type: style.TYPE[0],
+        ogMin: style.OG_MIN[0],
+        ogMAX: style.OG_MAX[0],
+        fgMin: style.FG_MIN[0],
+        fgMAX: style.FG_MAX[0],
+        ibuMin: style.IBU_MIN[0],
+        ibuMAX: style.IBU_MAX[0],
+        colorMin: style.COLOR_MIN[0],
+        colorMAX: style.COLOR_MAX[0],
+    }
 }
 
 function getMashSteps(json) {
