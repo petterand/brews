@@ -4,8 +4,7 @@ import eventHub from '../../services/EventHub';
 
 
 var BrewsComponent = Vue.extend({
-    template,
-    props: ['brews']
+    template
 })
 
 export default BrewsComponent;

@@ -1,5 +1,5 @@
 <div id="brews-wrapper">
-    <div v-for=" recipe in brews " class="brew-item ">
+    <div v-for=" recipe in $store.state.recipes " class="brew-item ">
         <p>{{ recipe.name }}</p>
     </div>
 </div>
