@@ -5,7 +5,6 @@ import Q from 'q';
 function parse(xml) {
     var defer = Q.defer();
     parseString(xml, (err, result) => {
-        console.log(result);
         defer.resolve(formatJson(result));
     });
     return defer.promise;

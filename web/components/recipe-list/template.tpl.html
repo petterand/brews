@@ -1,0 +1,5 @@
+<div id="brews-wrapper">
+    <router-link v-for="recipe in $store.state.recipes" :key="recipe.id" :to="'recipe/'+recipe.id" class="brew-item">
+        <recipe-list-item :recipe="recipe"></recipe-list-item>
+    </router-link>
+</div>
