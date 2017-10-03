@@ -67,6 +67,13 @@ app.post('/api/recipe', (req, res) => {
 
 app.get('/api/recipe', (req, res) => {
     Recipe.find({}).then((recipes) => {
+        recipes = recipes.map((item => {
+            return {
+                name: item.name,
+                id: item.name.replace(/\s/g, '_').toLowerCase(),
+                recipe: JSON.parse(item.recipe)
+            }
+        }));
         res.send(recipes);
     }, (err) => {
         res.status(500).send({ status: 'error', msg: err });

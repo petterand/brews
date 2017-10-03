@@ -1,5 +1,10 @@
 import VueRouter from 'vue-router';
 import Vue from 'vue';
+import store from './services/Store';
+
+import BrewsComponent from './components/brews-component/brews-component';
+import RecipeDetails from './components/recipe-details/recipe-details';
+
 Vue.use(VueRouter);
 
 function waitForData(to, from, next) {
