@@ -11,8 +11,10 @@ function fileDropHandler(e) {
         var reader = new FileReader();
         reader.onload = (e) => {
             var content = e.target.result;
-            BeerXmlService.parse(content).then((data) => {
-                eventHub.$emit('RECIPE_ADDED', data);
+            BeerXmlService.parse(content).then((recipe) => {
+                RecipeService.saveRecipe(recipe).then((savedRecipe) => {
+                    eventHub.$emit('RECIPE_ADDED', savedRecipe);
+                });
             });
         }
         reader.readAsText(file);

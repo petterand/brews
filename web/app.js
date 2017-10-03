@@ -16,11 +16,7 @@ new Vue({
         store.dispatch('fetchRecipes');
 
         eventHub.$on('RECIPE_ADDED', (recipe) => {
-            this.$http.post('/api/recipe', recipe).then((response) => {
-                this.recipes.push(recipe);
-            }, (err) => {
-                alert('FAILED TO ADD RECIPE');
-            });
+            this.recipes.push(recipe);
         });
 
     },

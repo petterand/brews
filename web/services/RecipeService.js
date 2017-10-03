@@ -6,5 +6,12 @@ export default {
          var recipes = response.body;
          return Promise.resolve(recipes);
       });
+   },
+   saveRecipe(recipe) {
+      return Vue.http.post('/api/recipe', recipe).then((response) => {
+         return Promise.resolve(recipe);
+      }, (err) => {
+         return Promise.reject(err);
+      });
    }
 }
