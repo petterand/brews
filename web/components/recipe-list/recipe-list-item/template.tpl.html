@@ -1,7 +1,7 @@
 <div class="content-wrapper">
    <div class="beer-color" v-bind:style="beerColor"></div>
    <div class="recipe-info">
-      <h4>{{ recipe.name }}</h4>
-      <p> <span v-if="recipe.recipe.style">{{ recipe.recipe.style.name }},</span> {{ recipe.recipe.estAbv }}% ABV</p>
+      <h3>{{ recipe.name }}</h3>
+      <p class="recipe-data"> <span v-if="recipe.recipe.style">{{ recipe.recipe.style.name }},</span> {{ recipe.recipe.estAbv }}% ABV</p>
    </div>
 </div>

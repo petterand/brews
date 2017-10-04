@@ -1,0 +1,10 @@
+<div id="menu">
+   <ul>
+      <li :class="{'active': linkIsActive('/')}">
+         <router-link to="/">Hem</router-link>
+      </li>
+      <li :class="{'active': linkIsActive('/add')}">
+         <router-link to="add">Lägg till recept</router-link>
+      </li>
+   </ul>
+</div>

@@ -1,16 +1,19 @@
 div#brews-wrapper {
    display: flex;
    flex-flow: row wrap;
+   padding: 20px 12px 12px;
 }
 
 a.brew-item {
-   border: 1px solid rgb(100, 100, 100);
+   border: 1px solid #c5c5c5;
    flex: 0 1 30%;
    margin-bottom: 2%;
    margin-right: 2%;
    text-decoration: none;
    color: #000;
-   h4, p {
+   box-shadow: 2px 2px 2px 0px #d1d1d1;
+
+   h3, p {
       margin: 0;
    }
    .content-wrapper {
@@ -21,5 +24,9 @@ a.brew-item {
    }
    .recipe-info {
       padding: 8px;
+   }
+   .recipe-data {
+      font-size: 0.9em;
+      margin-top: 12px;
    }
 }
