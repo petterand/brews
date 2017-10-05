@@ -22,6 +22,17 @@ const actions = {
       RecipeService.fetchRecipes().then((recipes) => {
          commit('addRecipes', recipes);
       });
+   },
+   saveRecipe({ commit }, recipe) {
+      return new Promise((resolve, reject) => {
+         RecipeService.saveRecipe(recipe).then(() => {
+            commit('addRecipe', recipe);
+            resolve(recipe);
+         }, (err) => {
+            reject(err);
+         });
+
+      });
    }
 };
 
