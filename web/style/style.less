@@ -12,6 +12,18 @@ body {
     padding: 32px 12px 12px;
 }
 
+.row {
+    display: flex;
+}
+
+input {
+    padding: 4px;
+    font-size: 1em;
+    &.short-field {
+        max-width: 65px;
+    }
+}
+
 @import "../components/add-brew/style";
 @import "../components/recipe-list/style";
 @import "../components/top-menu/style";

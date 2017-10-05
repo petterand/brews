@@ -6,38 +6,45 @@
     </div>
     <div v-if="recipe">
         <div id="input-wrapper">
-            <div class="input-item">
-                <label for="name">Namn:</label>
-                <input id="name" type="text" v-model="recipe.name">
-            </div>
-            <div class="input-item">
-                <label for="type">Typ:</label>
-                <input id="type" type="text" v-model="recipe.type">
-            </div>
-            <div class="input-item">
-                <label for="styleName">Stil:</label>
-                <input id="styleName" type="text" v-model="recipe.style.name">
-            </div>
-            <div class="input-item">
-                <label for="batchSize">Batchstorlek:</label>
-                <span>
+            <div class="recipe-section">
+                <h3>Information</h3>
+                <div class="row">
+                    <div class="input-item">
+                        <label for="name">Namn:</label>
+                        <input id="name" type="text" v-model="recipe.name">
+                    </div>
+                    <div class="input-item">
+                        <label for="type">Typ:</label>
+                        <input id="type" type="text" v-model="recipe.type">
+                    </div>
+                    <div class="input-item">
+                        <label for="styleName">Stil:</label>
+                        <input id="styleName" type="text" v-model="recipe.style.name">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-item-inline">
+                        <label for="batchSize">Batchstorlek:</label>
+                        <span>
                     <input id="batchSize" type="text" v-model="recipe.batchSize" class="short-field">
                     <span>L</span>
-                </span>
-            </div>
-            <div class="input-item">
-                <label for="boilSize">Kokmängd:</label>
-                <span>
+                        </span>
+                    </div>
+                    <div class="input-item-inline">
+                        <label for="boilSize">Kokmängd:</label>
+                        <span>
                     <input id="boilSize" type="text" v-model="recipe.boilSize" class="short-field">
                     <span>L</span>
-                </span>
-            </div>
-            <div class="input-item">
-                <label for="boilTime">Koktid:</label>
-                <span>
+                        </span>
+                    </div>
+                    <div class="input-item-inline">
+                        <label for="boilTime">Koktid:</label>
+                        <span>
                     <input id="boilTime" type="text" v-model="recipe.boilTime" class="short-field">
                     <span>min</span>
-                </span>
+                        </span>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
