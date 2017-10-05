@@ -7,15 +7,18 @@ import eventHub from '../../services/EventHub';
 
 function fileDropHandler(e) {
     e.preventDefault();
+    this.activeHover = false;
     var file = e.dataTransfer.files[0];
     if (file && file.type === 'text/xml') {
         var reader = new FileReader();
         reader.onload = (e) => {
             var content = e.target.result;
             BeerXmlService.parse(content).then((recipe) => {
-                store.dispatch('saveRecipe', recipe).then((recipe) => {
-                    console.log('RECIPE ADDED', recipe);
-                });
+                this.recipe = recipe;
+                console.log(recipe);
+                // store.dispatch('saveRecipe', recipe).then((recipe) => {
+                //     console.log('RECIPE ADDED', recipe);
+                // });
                 // RecipeService.saveRecipe(recipe).then((savedRecipe) => {
                 //     eventHub.$emit('RECIPE_ADDED', savedRecipe);
                 // });
@@ -30,11 +33,18 @@ function onDragOver(e) {
 }
 
 function onDragEnter(e) {
+    this.activeHover = true;
     e.preventDefault();
 }
 
 function onDragEnd(e) {
-    console.log('end', e);
+    this.activeHover = false;
+    e.preventDefault();
+}
+
+function onDragOut(e) {
+    this.activeHover = false;
+    e.preventDefault();
 }
 
 const AddBrewComponent = Vue.extend({
@@ -43,7 +53,14 @@ const AddBrewComponent = Vue.extend({
         drop: fileDropHandler,
         dragOver: onDragOver,
         dragEnter: onDragEnter,
-        dragEnd: onDragEnd
+        dragEnd: onDragEnd,
+        dragOut: onDragOut
+    },
+    data: function () {
+        return {
+            activeHover: false,
+            recipe: null
+        }
     }
 });
 

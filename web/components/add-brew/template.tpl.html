@@ -1,3 +1,44 @@
-<div id="file-drop-zone" @drop="drop" @dragover="dragOver" @dragenter="dragEnter" @dragend="dragEnd">
-    Släpp din beerxml fil här!
+<div>
+    <div id="file-drop-zone" @drop="drop" @dragover="dragOver" @dragenter="dragEnter" @dragend="dragEnd" @dragleave="dragOut"
+        :class="{'file-hover': activeHover}">
+        <span>Släpp din beerxml fil här!</span>
+        <span class="fa fa-file-o file-icon"></span>
+    </div>
+    <div v-if="recipe">
+        <div id="input-wrapper">
+            <div class="input-item">
+                <label for="name">Namn:</label>
+                <input id="name" type="text" v-model="recipe.name">
+            </div>
+            <div class="input-item">
+                <label for="type">Typ:</label>
+                <input id="type" type="text" v-model="recipe.type">
+            </div>
+            <div class="input-item">
+                <label for="styleName">Stil:</label>
+                <input id="styleName" type="text" v-model="recipe.style.name">
+            </div>
+            <div class="input-item">
+                <label for="batchSize">Batchstorlek:</label>
+                <span>
+                    <input id="batchSize" type="text" v-model="recipe.batchSize" class="short-field">
+                    <span>L</span>
+                </span>
+            </div>
+            <div class="input-item">
+                <label for="boilSize">Kokmängd:</label>
+                <span>
+                    <input id="boilSize" type="text" v-model="recipe.boilSize" class="short-field">
+                    <span>L</span>
+                </span>
+            </div>
+            <div class="input-item">
+                <label for="boilTime">Koktid:</label>
+                <span>
+                    <input id="boilTime" type="text" v-model="recipe.boilTime" class="short-field">
+                    <span>min</span>
+                </span>
+            </div>
+        </div>
+    </div>
 </div>

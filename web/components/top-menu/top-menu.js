@@ -5,7 +5,6 @@ const TopMenuComponent = Vue.extend({
    template,
    methods: {
       linkIsActive(input) {
-         console.log(this.$route.path);
          return this.$route.path === input;
       }
    }

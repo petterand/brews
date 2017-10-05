@@ -24,6 +24,9 @@ module.exports = {
         }
     },
     module: {
+        loaders: [
+
+        ],
         rules: [
             {
                 test: /\.js$/,
@@ -48,6 +51,14 @@ module.exports = {
                 }, {
                     loader: "less-loader" // compiles Less to CSS
                 }]
+            },
+            {
+                test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
+                loader: "file-loader?name=fonts/[name].[ext]"
+            },
+            {
+                test: /\.(woff|woff2|ttf|svg)(\?v=\d+\.\d+\.\d+)?$/,
+                loader: "url-loader?limit=10000&name=fonts/[name].[ext]"
             }
         ]
     }
