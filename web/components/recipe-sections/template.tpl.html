@@ -1,0 +1,55 @@
+<div id="recipe-sections">
+   <div class="recipe-section">
+      <h3>Information</h3>
+      <div class="row">
+
+         <div class="input-item" v-if="editable">
+            <label for="name" class="input-item-title">Namn:</label>
+            <input type="text" v-model="recipe.name">
+         </div>
+         <div class="input-item" v-if="!editable">
+            <span class="input-item-title">Namn:</span>
+            <span>{{ recipe.name }}</span>
+         </div>
+
+         <div class="input-item">
+            <span class="input-item-title">Typ:</span>
+            <span>{{ recipe.type }}</span>
+         </div>
+         <div class="input-item" v-if="recipe.style">
+            <span class="input-item-title">Stil:</span>
+            <span>{{recipe.style.name}}</span>
+         </div>
+      </div>
+      <div class="row">
+         <div class="input-item-inline">
+            <span class="input-item-title">Batchstorlek:</span>
+            <span class="short-field">{{ recipe.batchSize }} L</span>
+         </div>
+         <div class="input-item-inline">
+            <span class="input-item-title">Kokmängd:</span>
+            <span class="short-field">{{recipe.boilSize}} L</span>
+         </div>
+         <div class="input-item-inline">
+            <span class="input-item-title">Koktid:</span>
+            <span class="short-field">{{recipe.boilTime}} min</span>
+         </div>
+      </div>
+   </div>
+
+   <div class="recipe-section padding">
+      <h3>Malt</h3>
+      <table>
+         <tr>
+            <th>Malt</th>
+            <th>Mängd(kg)</th>
+            <th>%</th>
+         </tr>
+         <tr v-for="fermentable in recipe.fermentables">
+            <td>{{ fermentable.name }}</td>
+            <td>{{ getRoundedValue(fermentable.amount) }} kg</td>
+            <td>{{ getRoundedValue(getPercent(fermentable, recipe.fermentables)) }}%</td>
+         </tr>
+      </table>
+   </div>
+</div>

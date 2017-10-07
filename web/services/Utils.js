@@ -1,5 +1,6 @@
 const Utils = {
-    srmToHex: srmToHex
+    srmToHex: srmToHex,
+    round10: round10
 };
 
 export default Utils;
@@ -13,4 +14,28 @@ function srmToHex(srm) {
     } else {
         return SRM_HEX[srm - 1];
     }
+}
+
+function round10(value, exp) {
+    if (typeof exp === 'undefined' || +exp === 0) {
+        return Math.round(value);
+    }
+    value = +value;
+    exp = +exp;
+    // If the value is not a number or the exp is not an integer...
+    if (value === null || isNaN(value) || !(typeof exp === 'number' && exp % 1 === 0)) {
+        return NaN;
+    }
+    // If the value is negative...
+    if (value < 0) {
+        return -decimalAdjust(-value, exp);
+    }
+    // Shift
+    value = value.toString().split('e');
+
+    value = Math.round(+(value[0] + 'e' + (value[1] ? (+value[1] - exp) : -exp)));
+    // Shift back
+    value = value.toString().split('e');
+    return +(value[0] + 'e' + (value[1] ? (+value[1] + exp) : exp));
+
 }

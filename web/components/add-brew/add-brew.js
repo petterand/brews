@@ -3,6 +3,7 @@ import template from './template.tpl.html';
 import store from '../../services/Store';
 import BeerXmlService from '../../services/BeerXmlService';
 import eventHub from '../../services/EventHub';
+import Utils from '../../services/Utils';
 
 
 function fileDropHandler(e) {
