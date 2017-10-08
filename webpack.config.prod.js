@@ -52,7 +52,7 @@ module.exports = {
             { from: 'web/prod.html', to: 'index.html' }
         ]),
         new webpack.DefinePlugin({
-            'process_env': {
+            'process.env': {
                 'NODE_ENV': JSON.stringify('production')
             }
         })
