@@ -48,7 +48,7 @@ function isLoggedIn(req, res, next) {
     res.status(401).send();
 }
 
-app.post('/api/recipe', (req, res) => {
+app.post('/api/recipe', isLoggedIn, (req, res) => {
     var newRecipe = req.body;
     var recipe = new Recipe({
         name: newRecipe.name,
