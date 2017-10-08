@@ -62,9 +62,9 @@
             <th>Tid(min)</th>
          </tr>
          <tr v-for="hop in recipe.hops">
-            <td>{{ fermentable.name }}</td>
+            <td>{{ hop.name }}</td>
             <td>{{ getRoundedValue(hop.amount) }} kg</td>
-            <td>{{ fermentable.time }} min</td>
+            <td>{{ hop.time }} min</td>
          </tr>
       </table>
    </div>
