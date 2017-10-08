@@ -75,8 +75,8 @@ app.get('/api/recipe', (req, res) => {
     });
 });
 
-app.listen(8088, () => {
-    console.log('Listening on 8088');
+app.listen(8099, () => {
+    console.log('Listening on 8099');
     mongoose.connect(config.db_url, { useMongoClient: true }).then(() => {
         console.log('connected to database');
     }, (err) => {
