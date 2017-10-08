@@ -1,5 +1,6 @@
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const webpack = require('webpack');
 
 module.exports = {
     entry: [__dirname + '/web/app.js', __dirname + '/web/style/style.less'],
@@ -41,7 +42,12 @@ module.exports = {
         new ExtractTextPlugin('style.css'),
         new CopyWebpackPlugin([
             { from: 'web/prod.html', to: 'index.html' }
-        ])
+        ]),
+        new webpack.DefinePlugin({
+            'process_env': {
+                'NODE_ENV': JSON.stringify('production');
+            }
+        })
     ]
 }
 
