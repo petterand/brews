@@ -7,8 +7,10 @@
 
 <body>
     <div id="app">
-        <add-brew></add-brew>
-        <brews :brews="recipes"></brews>
+        <top-menu></top-menu>
+        <div id="main-wrapper">
+            <router-view></router-view>
+        </div>
     </div>
     <script src="bundle.js"></script>
 </body>

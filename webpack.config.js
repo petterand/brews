@@ -20,7 +20,7 @@ module.exports = {
         inline: true,
         port: 9099,
         proxy: {
-            '/api': 'http://localhost:8888'
+            '/api': 'http://localhost:8099'
         }
     },
     module: {
