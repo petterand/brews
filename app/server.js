@@ -25,11 +25,7 @@ app.use(passport.session());
 
 
 mongoose.Promise = global.Promise;
-mongoose.connect(config.db_url, { useMongoClient: true }).then(() => {
-    console.log('connected to database');
-}, (err) => {
-    console.log("ERR", err);
-});
+
 
 const Recipe = require('./models/Recipe');
 
@@ -82,5 +78,15 @@ app.get('/api/recipe', (req, res) => {
 
 app.listen(8888, () => {
     console.log('Listening on 8888');
+    mongoose.connect(config.db_url, { useMongoClient: true }).then(() => {
+        console.log('connected to database');
+    }, (err) => {
+        console.log("ERR", err);
+    });
 });
 
+process.on('SIGINT', function () {
+    mongoose.disconnect((err) => {
+        process.exit(err ? 1 : 0);
+    })
+});

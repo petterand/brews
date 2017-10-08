@@ -1,0 +1,4 @@
+{
+   "name": "brews",
+   "script": "app/server.js"
+}
