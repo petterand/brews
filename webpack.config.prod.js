@@ -5,7 +5,7 @@ const webpack = require('webpack');
 module.exports = {
     entry: [__dirname + '/web/app.js', __dirname + '/web/style/style.less'],
     output: {
-        path: __dirname + '/web/out/',
+        path: __dirname + '/dist/',
         filename: 'bundle.js'
     },
     resolve: {
@@ -35,6 +35,14 @@ module.exports = {
                     fallback: 'style-loader',
                     use: ['css-loader', 'less-loader']
                 })
+            },
+            {
+                test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
+                loader: "file-loader?name=fonts/[name].[ext]"
+            },
+            {
+                test: /\.(woff|woff2|ttf|svg)(\?v=\d+\.\d+\.\d+)?$/,
+                loader: "url-loader?limit=10000&name=fonts/[name].[ext]"
             }
         ]
     },

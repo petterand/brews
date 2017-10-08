@@ -2,3 +2,4 @@ node_modules
 web/out
 .vscode
 app/configs/server-config.js
+dist/
