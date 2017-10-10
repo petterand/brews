@@ -31,15 +31,15 @@ const Recipe = require('./models/Recipe');
 
 require('./passport')(passport);
 
-app.get('/signout', function (req, res) {
+app.post('/api/signout', function (req, res) {
     req.logout();
-    res.redirect('/');
+    res.send({ status: 'loggedout' });
 });
 
-app.post('/login', passport.authenticate('login', {
-    successRedirect: '/',
-    failureRedirect: '/'
-}));
+app.post('/api/login', passport.authenticate('login'), (req, res) => {
+    var user = { name: req.user.name };
+    res.send({ status: 'loggedin', user: user });
+});
 
 function isLoggedIn(req, res, next) {
     if (req.isAuthenticated()) {
@@ -47,6 +47,17 @@ function isLoggedIn(req, res, next) {
     }
     res.status(401).send();
 }
+
+app.get('/api/isAuthenticated', (req, res) => {
+    var responseObject = {
+        isAuthenticated: req.isAuthenticated()
+    };
+    if (req.user) {
+        responseObject.user = { name: req.user.name }
+            ;
+    }
+    res.send(responseObject);
+});
 
 app.post('/api/recipe', isLoggedIn, (req, res) => {
     var newRecipe = req.body;

@@ -3,8 +3,21 @@
       <li :class="{'active': linkIsActive('/')}">
          <router-link to="/">Hem</router-link>
       </li>
-      <li :class="{'active': linkIsActive('/add')}">
+      <li :class="{'active': linkIsActive('/add')}" v-if="$store.getters.isLoggedIn">
          <router-link to="/add">Lägg till recept</router-link>
       </li>
    </ul>
+   <div id="user-wrapper">
+      <div id="login-wrapper">
+         <div id="login-content" :class="{'hidden': !showLogin}">
+            <input type="text" placeholder="användare" v-model="creds.username">
+            <input type="password" placeholder="LÖSEN" v-on:keyup="signin($event)" v-model="creds.password">
+         </div>
+      </div>
+      <div v-if="$store.getters.isLoggedIn" id="user-info">
+         {{ $store.state.user.name}}
+      </div>
+      <div class="fa fa-user user-icon" v-on:click="toggleLoginOrMenu"></div>
+      <user-menu :show-menu="showUserMenu"></user-menu>
+   </div>
 </div>

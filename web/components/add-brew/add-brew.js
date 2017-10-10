@@ -17,12 +17,6 @@ function fileDropHandler(e) {
             BeerXmlService.parse(content).then((recipe) => {
                 this.recipe = recipe;
                 console.log(recipe);
-                // store.dispatch('saveRecipe', recipe).then((recipe) => {
-                //     console.log('RECIPE ADDED', recipe);
-                // });
-                // RecipeService.saveRecipe(recipe).then((savedRecipe) => {
-                //     eventHub.$emit('RECIPE_ADDED', savedRecipe);
-                // });
             });
         }
         reader.readAsText(file);
@@ -61,6 +55,13 @@ const AddBrewComponent = Vue.extend({
         return {
             activeHover: false,
             recipe: null
+        }
+    },
+    beforeRouteEnter(to, from, next) {
+        if (!store.state.isLoggedIn)  {
+            next('/404');
+        } else {
+            next();
         }
     }
 });
