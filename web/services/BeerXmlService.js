@@ -32,7 +32,7 @@ function formatJson(json) {
     resultObject.notes = root.NOTES ? root.NOTES[0] : '';
     resultObject.ibuMethod = root.IBU_METHOD ? root.IBU_METHOD[0] : '';
     resultObject.waters = root.WATERS ? root.WATERS[0] : '';
-    resultObject.fermentationStages = root.FERMENTATION_STAGES ? root.FERMENTATION_STAGES[0] : '';
+    resultObject.fermentationStages = root.FERMENTATION_STAGES ? parseInt(root.FERMENTATION_STAGES[0]) : '';
     resultObject.primaryAge = root.PRIMARY_AGE ? root.PRIMARY_AGE[0] : '';
     resultObject.primaryTemp = root.PRIMARY_TEMP ? root.PRIMARY_TEMP[0] : '';
     resultObject.mashSteps = getMashSteps(root.MASH ? root.MASH[0].MASH_STEPS[0].MASH_STEP : []);

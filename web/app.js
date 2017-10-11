@@ -18,11 +18,9 @@ new Vue({
     store,
     created() {
         store.dispatch('fetchIsAuthenticated')
-            .then(store.dispatch('fetchRecipes'))
-            .then(() => {
+            .then(store.dispatch('fetchRecipes').then((a) => {
                 store.state.dataLoaded = true;
-            });
-
+            }));
 
         eventHub.$on('RECIPE_ADDED', (recipe) => {
             this.recipes.push(recipe);

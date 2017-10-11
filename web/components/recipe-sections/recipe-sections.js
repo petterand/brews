@@ -31,7 +31,9 @@ const RecipeSectionsComponent = Vue.extend({
       getRoundedValue: getRoundedValue
    },
    data: function () {
-      return {}
+      return {
+         fermentationStepNames: ['Primär', 'Sekundär']
+      }
    }
 });
 

@@ -37,8 +37,11 @@ const mutations = {
 
 const actions = {
    fetchRecipes({ commit }) {
-      RecipeService.fetchRecipes().then((recipes) => {
-         commit('addRecipes', recipes);
+      return new Promise((resolve, reject) => {
+         RecipeService.fetchRecipes().then((recipes) => {
+            commit('addRecipes', recipes);
+            resolve(recipes);
+         });
       });
    },
    saveRecipe({ commit }, recipe) {

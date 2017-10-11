@@ -68,4 +68,69 @@
          </tr>
       </table>
    </div>
+
+   <div class="recipe-section">
+      <h3>Jäst</h3>
+      <table>
+         <tr>
+            <th>Jäst</th>
+            <th>Typ</th>
+            <th>Form</th>
+         </tr>
+         <tr v-for="yeast in recipe.yeasts">
+            <td>{{ yeast.name }}</td>
+            <td>{{ yeast.type }}</td>
+            <td>{{ yeast.form }}</td>
+         </tr>
+      </table>
+   </div>
+
+   <div class="recipe-section" v-if="recipe.miscs">
+      <h3>Övrigt</h3>
+      <table>
+         <tr>
+            <th>Mängd</th>
+            <th>Enhet</th>
+            <th>Namn</th>
+         </tr>
+         <tr v-for="misc in recipe.miscs">
+            <td>{{ misc.amount }}</td>
+            <td>{{ misc.amountIsWeight === 'true' ? 'kg' : 'l' }}</td>
+            <td>{{ misc.name }}</td>
+         </tr>
+      </table>
+   </div>
+
+   <div class="recipe-section">
+      <h3>Mäskning</h3>
+      <table>
+         <tr>
+            <th>Namn</th>
+            <th>Temperatur (°C)</th>
+            <th>Tid</th>
+         </tr>
+         <tr v-for="step in recipe.mashSteps">
+            <td>{{ step.name }}</td>
+            <td>{{ step.stepTemp}}</td>
+            <td>{{ step.stepTime }}</td>
+         </tr>
+      </table>
+   </div>
+
+   <div class="recipe-section">
+      <h3>Jäsning</h3>
+      <table>
+         <tr>
+            <th>Typ</th>
+            <th>Temperatur (°C)</th>
+            <th>Tid (dagar)</th>
+         </tr>
+         <tr v-for="n in recipe.fermentationStages">
+            <td>{{ fermentationStepNames[n-1] }}</td>
+            <td>{{ recipe.primaryTemp }}</td>
+            <td>{{ recipe.primaryAge }}</td>
+         </tr>
+      </table>
+   </div>
+
 </div>
