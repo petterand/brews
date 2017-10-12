@@ -22,33 +22,33 @@
          </div>
       </div>
       <div class="row">
-         <div class="input-item-inline">
+         <div class="input-item">
             <span class="input-item-title">Batchstorlek:</span>
             <span class="short-field">{{ recipe.batchSize }} L</span>
          </div>
-         <div class="input-item-inline">
+         <div class="input-item">
             <span class="input-item-title">Kokmängd:</span>
             <span class="short-field">{{recipe.boilSize}} L</span>
          </div>
-         <div class="input-item-inline">
+         <div class="input-item">
             <span class="input-item-title">Koktid:</span>
             <span class="short-field">{{recipe.boilTime}} min</span>
          </div>
       </div>
-      <div class="row">
-         <div class="input-item-inline">
+      <div class="row row-4">
+         <div class="input-item">
             <span class="input-item-title">OG:</span>
             <span class="short-field">{{ recipe.estOG }}</span>
          </div>
-         <div class="input-item-inline">
+         <div class="input-item">
             <span class="input-item-title">FG:</span>
             <span class="short-field">{{ recipe.estFG }}</span>
          </div>
-         <div class="input-item-inline">
+         <div class="input-item">
             <span class="input-item-title">ABV:</span>
             <span class="short-field">{{ recipe.estAbv }}%</span>
          </div>
-         <div class="input-item-inline">
+         <div class="input-item">
             <span class="input-item-title">IBU:</span>
             <span class="short-field">{{ recipe.ibu }}</span>
          </div>
@@ -78,11 +78,13 @@
             <th>Humle</th>
             <th>Mängd(g)</th>
             <th>Tid(min)</th>
+            <th>Användning</th>
          </tr>
          <tr v-for="hop in recipe.hops">
             <td>{{ hop.name }}</td>
             <td>{{ getRoundedValue(hop.amount) }} kg</td>
             <td>{{ hop.time }} min</td>
+            <td>{{ hop.use }}</td>
          </tr>
       </table>
    </div>
