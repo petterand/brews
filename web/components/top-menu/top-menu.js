@@ -28,6 +28,9 @@ const TopMenuComponent = Vue.extend({
       toggleLoginOrMenu() {
          if (!store.getters.isLoggedIn) {
             this.showLogin = !this.showLogin;
+            if (!this.showLogin) {
+               this.$refs.username.blur();
+            }
          } else {
             this.showUserMenu = !this.showUserMenu;
          }
@@ -40,7 +43,9 @@ const TopMenuComponent = Vue.extend({
          }
       },
       focusInput() {
-         this.$refs.username.focus();
+         if (this.showLogin) {
+            this.$refs.username.focus();
+         }
       }
    }
 });
