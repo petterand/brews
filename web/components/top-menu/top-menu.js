@@ -38,6 +38,9 @@ const TopMenuComponent = Vue.extend({
                this.showLogin = false;
             });
          }
+      },
+      focusInput() {
+         this.$refs.username.focus();
       }
    }
 });
