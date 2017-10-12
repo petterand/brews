@@ -14,5 +14,11 @@ describe('Utils', () => {
       it('should round 0.499999 to 0.5', () => {
          expect(Utils.round10(0.499999, -1)).to.equal(0.5);
       });
-   })
+   });
+
+   describe('minutesToDays', () => {
+      it('should return correct number of days', () => {
+         expect(Utils.minutesToDays(10080)).to.equal(7);
+      });
+   });
 });

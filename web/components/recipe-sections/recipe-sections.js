@@ -23,12 +23,24 @@ function getRoundedValue(value, exp) {
    return value;
 }
 
+function formatMinutes(minutes) {
+   const MIN_PER_DAY = 60 * 24;
+
+   if (minutes > MIN_PER_DAY) {
+      minutes = Utils.minutesToDays(minutes) + ' dagar';
+   } else {
+      minutes = minutes + ' min';
+   }
+   return minutes;
+}
+
 const RecipeSectionsComponent = Vue.extend({
    template,
    props: ["recipe", "editable"],
    methods: {
       getPercent: getPercent,
-      getRoundedValue: getRoundedValue
+      getRoundedValue: getRoundedValue,
+      formatMinutes: formatMinutes
    },
    data: function () {
       return {

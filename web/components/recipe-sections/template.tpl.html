@@ -32,7 +32,7 @@
          </div>
          <div class="input-item">
             <span class="input-item-title">Koktid:</span>
-            <span class="short-field">{{recipe.boilTime}} min</span>
+            <span class="short-field">{{formatMinutes(recipe.boilTime)}}</span>
          </div>
       </div>
       <h4>Uppskattade värden</h4>
@@ -77,14 +77,14 @@
       <table>
          <tr>
             <th>Humle</th>
-            <th>Mängd(g)</th>
-            <th>Tid(min)</th>
+            <th>Mängd</th>
+            <th>Tid</th>
             <th>Användning</th>
          </tr>
          <tr v-for="hop in recipe.hops">
             <td>{{ hop.name }}</td>
             <td>{{ getRoundedValue(hop.amount) }} kg</td>
-            <td>{{ hop.time }} min</td>
+            <td>{{ formatMinutes(hop.time) }}</td>
             <td>{{ hop.use }}</td>
          </tr>
       </table>
@@ -116,7 +116,7 @@
          </tr>
          <tr v-for="misc in recipe.miscs">
             <td>{{ misc.amount }}</td>
-            <td>{{ misc.amountIsWeight === 'true' ? 'kg' : 'l' }}</td>
+            <td>{{ misc.amountIsWeight === 'true' ? 'kg' : 'L' }}</td>
             <td>{{ misc.name }}</td>
          </tr>
       </table>
@@ -133,7 +133,7 @@
          <tr v-for="step in recipe.mashSteps">
             <td>{{ step.name }}</td>
             <td>{{ step.stepTemp}}</td>
-            <td>{{ step.stepTime }}</td>
+            <td>{{ formatMinutes(step.stepTime) }}</td>
          </tr>
       </table>
    </div>

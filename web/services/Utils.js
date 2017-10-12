@@ -1,6 +1,7 @@
 const Utils = {
     srmToHex: srmToHex,
-    round10: round10
+    round10: round10,
+    minutesToDays: minutesToDays
 };
 
 export default Utils;
@@ -38,4 +39,9 @@ function round10(value, exp) {
     value = value.toString().split('e');
     return +(value[0] + 'e' + (value[1] ? (+value[1] + exp) : exp));
 
+}
+
+
+function minutesToDays(min) {
+    return min / (60 * 24);
 }
