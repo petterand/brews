@@ -1,7 +1,7 @@
 <div id="menu">
    <ul>
       <li :class="{'active': linkIsActive('/')}">
-         <router-link to="/">Hem</router-link>
+         <router-link to="/">Lista</router-link>
       </li>
       <li :class="{'active': linkIsActive('/add')}" v-if="$store.getters.isLoggedIn">
          <router-link to="/add">Lägg till recept</router-link>
