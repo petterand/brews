@@ -16,7 +16,9 @@ function fileDropHandler(e) {
         reader.onload = (e) => {
             var content = e.target.result;
             BeerXmlService.parse(content).then((recipe) => {
-                this.recipe = recipe;
+                this.recipe = {
+                    recipe
+                };
             });
         }
         reader.readAsText(file);
@@ -70,7 +72,7 @@ const AddBrewComponent = Vue.extend({
 export default AddBrewComponent;
 
 function saveRecipe() {
-    store.dispatch('saveRecipe', this.recipe).then((recipe) => {
+    store.dispatch('saveRecipe', this.recipe.recipe).then((recipe) => {
         this.$router.push('/');
     });
 }

@@ -17,5 +17,12 @@ export default {
       }, (err) => {
          return Promise.reject(err);
       });
+   },
+   deleteRecipe(id) {
+      return Vue.http.delete('/api/recipe/' + id).then((response) => {
+         return Promise.resolve();
+      }, (err) => {
+         return Promise.reject(err);
+      });
    }
 }

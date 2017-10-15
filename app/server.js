@@ -79,7 +79,6 @@ app.post('/api/recipe', isLoggedIn, (req, res) => {
 app.get('/api/recipe', (req, res) => {
     Recipe.find({}).then((recipes) => {
         recipes = recipes.map((item => {
-            //id: item.name.replace(/\s/g, '_').toLowerCase(),
             return {
                 id: item.id,
                 name: item.name,
@@ -87,6 +86,15 @@ app.get('/api/recipe', (req, res) => {
             }
         }));
         res.send(recipes);
+    }, (err) => {
+        res.status(500).send({ status: 'error', msg: err });
+    });
+});
+
+app.delete('/api/recipe/:id', isLoggedIn, (req, res) => {
+    var recipeId = req.params.id;
+    Recipe.remove({ id: recipeId }).then(() => {
+        res.send({ status: 'removed' });
     }, (err) => {
         res.status(500).send({ status: 'error', msg: err });
     });

@@ -1,6 +1,8 @@
 import Vue from 'vue';
 import template from './template.tpl.html';
 import Utils from '../../services/Utils';
+import store from '../../services/Store';
+import router from '../../router';
 
 function getPercent(fermentable, allFermentables) {
    var totalWeight = 0;
@@ -44,14 +46,26 @@ function formatWeight(weight) {
    return weight;
 }
 
+function deleteRecipe() {
+   store.dispatch('removeRecipe', this.recipe).then(() => {
+      router.push('/');
+   });
+}
+
 const RecipeSectionsComponent = Vue.extend({
    template,
    props: ["recipe", "editable"],
+   computed: {
+      getRecipe: function () {
+         return this.recipe.recipe;
+      }
+   },
    methods: {
-      getPercent: getPercent,
-      getRoundedValue: getRoundedValue,
-      formatMinutes: formatMinutes,
-      formatWeight: formatWeight
+      getPercent,
+      getRoundedValue,
+      formatMinutes,
+      formatWeight,
+      deleteRecipe
    }
 });
 

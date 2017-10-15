@@ -19,6 +19,10 @@ const mutations = {
    addRecipe(state, recipe) {
       state.recipes.push(recipe);
    },
+   removeRecipe(state, recipe) {
+      var index = state.recipes.indexOf(recipe);
+      state.recipes.splice(index, 1);
+   },
    LOGIN_SUCCESS(state, user) {
       state.isLoggedIn = true;
       state.user = user;
@@ -53,6 +57,16 @@ const actions = {
             reject(err);
          });
 
+      });
+   },
+   removeRecipe({ commit }, recipe) {
+      return new Promise((resolve, reject) => {
+         RecipeService.deleteRecipe(recipe.id).then(() => {
+            commit('removeRecipe', recipe);
+            resolve();
+         }, (err) => {
+            reject();
+         });
       });
    },
    login({ commit }, creds) {
