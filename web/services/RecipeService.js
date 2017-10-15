@@ -9,7 +9,11 @@ export default {
    },
    saveRecipe(recipe) {
       return Vue.http.post('/api/recipe', recipe).then((response) => {
-         return Promise.resolve(recipe);
+         if (response.body.status === 'added') {
+            return Promise.resolve(response.body.recipe);
+         } else {
+            return Promise.reject();
+         }
       }, (err) => {
          return Promise.reject(err);
       });

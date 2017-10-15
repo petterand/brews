@@ -26,19 +26,28 @@ function formatJson(json) {
     resultObject.estOG = root.EST_OG ? root.EST_OG[0] : '';
     resultObject.estFG = root.EST_FG ? root.EST_FG[0] : '';
     resultObject.ibu = root.IBU ? root.IBU[0] : '';
-    resultObject.estAbv = root.EST_ABV ? root.EST_ABV[0] : '';
+    resultObject.estAbv = root.EST_ABV ? parseFloat(root.EST_ABV[0]).toString() : '';
     resultObject.calories = root.CALORIES ? root.CALORIES[0] : '';
     resultObject.estColor = root.EST_COLOR ? root.EST_COLOR[0] : '';
     resultObject.notes = root.NOTES ? root.NOTES[0] : '';
     resultObject.ibuMethod = root.IBU_METHOD ? root.IBU_METHOD[0] : '';
     resultObject.waters = root.WATERS ? root.WATERS[0] : '';
-    resultObject.fermentationStages = root.FERMENTATION_STAGES ? parseInt(root.FERMENTATION_STAGES[0]) : '';
-    resultObject.primaryAge = root.PRIMARY_AGE ? root.PRIMARY_AGE[0] : '';
-    resultObject.primaryTemp = root.PRIMARY_TEMP ? root.PRIMARY_TEMP[0] : '';
     resultObject.mashSteps = getMashSteps(root.MASH ? root.MASH[0].MASH_STEPS[0].MASH_STEP : []);
     resultObject.fermentables = getFermentables(root.FERMENTABLES ? root.FERMENTABLES[0].FERMENTABLE : []);
     resultObject.hops = getHops(root.HOPS ? root.HOPS[0].HOP : []);
     resultObject.yeasts = getYeasts(root.YEASTS ? root.YEASTS[0].YEAST : []);
+    if (root.PRIMARY_AGE && root.PRIMARY_TEMP) {
+        resultObject.fermentationStages = [
+            { name: 'Primär', age: root.PRIMARY_AGE[0], temp: root.PRIMARY_TEMP[0] }
+        ];
+        if (root.SECONDARY_AGE && root.SECONDARY_TEMP) {
+            resultObject.fermentationStages.push({
+                name: 'Sekundär',
+                age: root.SECONDARY_AGE[0],
+                temp: root.SECONDARY_TEMP[0]
+            });
+        }
+    }
     if (root.MISCS && valueIsObject(root.MISCS[0])) {
         resultObject.miscs = getMiscs(root.MISCS[0].MISC);
     }
@@ -150,7 +159,7 @@ function getMiscs(json) {
             name: misc.NAME ? misc.NAME[0] : '',
             version: misc.VERSION ? misc.VERSION[0] : '',
             amount: misc.AMOUNT ? misc.AMOUNT[0] : '',
-            amountIsWeight: misc.AMOUNT_IS_WEIGHT ? misc.AMOUNT_IS_WEIGHT[0] : '',
+            amountIsWeight: misc.AMOUNT_IS_WEIGHT ? misc.AMOUNT_IS_WEIGHT[0].toLowerCase() : '',
             time: misc.TIME ? misc.TIME[0] : '',
             type: misc.TYPE ? misc.TYPE[0] : '',
             use: misc.USE ? misc.USE[0] : ''

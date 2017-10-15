@@ -1,7 +1,8 @@
 const Utils = {
     srmToHex: srmToHex,
     round10: round10,
-    minutesToDays: minutesToDays
+    minutesToDays: minutesToDays,
+    kgToGram: kgToGram
 };
 
 export default Utils;
@@ -44,4 +45,11 @@ function round10(value, exp) {
 
 function minutesToDays(min) {
     return min / (60 * 24);
+}
+
+function kgToGram(weight) {
+    if (weight > 1) {
+        return weight;
+    }
+    return weight * 1000;
 }

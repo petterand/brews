@@ -24,15 +24,15 @@
       <div class="row">
          <div class="input-item">
             <span class="input-item-title">Batchstorlek:</span>
-            <span class="short-field">{{ recipe.batchSize }} L</span>
+            <span class="short-field">{{ getRoundedValue(recipe.batchSize) }} L</span>
          </div>
          <div class="input-item">
             <span class="input-item-title">Kokmängd:</span>
-            <span class="short-field">{{recipe.boilSize}} L</span>
+            <span class="short-field">{{getRoundedValue(recipe.boilSize)}} L</span>
          </div>
          <div class="input-item">
             <span class="input-item-title">Koktid:</span>
-            <span class="short-field">{{formatMinutes(recipe.boilTime)}}</span>
+            <span class="short-field">{{formatMinutes(getRoundedValue(recipe.boilTime))}}</span>
          </div>
       </div>
       <h4>Uppskattade värden</h4>
@@ -83,7 +83,7 @@
          </tr>
          <tr v-for="hop in recipe.hops">
             <td>{{ hop.name }}</td>
-            <td>{{ getRoundedValue(hop.amount) }} kg</td>
+            <td>{{ formatWeight(getRoundedValue(hop.amount)) }}</td>
             <td>{{ formatMinutes(hop.time) }}</td>
             <td>{{ hop.use }}</td>
          </tr>
@@ -132,8 +132,8 @@
          </tr>
          <tr v-for="step in recipe.mashSteps">
             <td>{{ step.name }}</td>
-            <td>{{ step.stepTemp}}</td>
-            <td>{{ formatMinutes(step.stepTime) }}</td>
+            <td>{{ getRoundedValue(step.stepTemp)}}</td>
+            <td>{{ getRoundedValue(formatMinutes(step.stepTime)) }}</td>
          </tr>
       </table>
    </div>
@@ -146,10 +146,10 @@
             <th>Temperatur (°C)</th>
             <th>Tid (dagar)</th>
          </tr>
-         <tr v-for="n in recipe.fermentationStages">
-            <td>{{ fermentationStepNames[n-1] }}</td>
-            <td>{{ recipe.primaryTemp }}</td>
-            <td>{{ recipe.primaryAge }}</td>
+         <tr v-for="stage in recipe.fermentationStages">
+            <td>{{ stage.name }}</td>
+            <td>{{ getRoundedValue(stage.temp) }}</td>
+            <td>{{ getRoundedValue(stage.age) }}</td>
          </tr>
       </table>
    </div>

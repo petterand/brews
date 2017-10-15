@@ -53,8 +53,7 @@ app.get('/api/isAuthenticated', (req, res) => {
         isAuthenticated: req.isAuthenticated()
     };
     if (req.user) {
-        responseObject.user = { name: req.user.name }
-            ;
+        responseObject.user = { name: req.user.name };
     }
     res.send(responseObject);
 });
@@ -62,21 +61,28 @@ app.get('/api/isAuthenticated', (req, res) => {
 app.post('/api/recipe', isLoggedIn, (req, res) => {
     var newRecipe = req.body;
     var recipe = new Recipe({
+        id: newRecipe.name.replace(/\s/g, '_').toLowerCase(),
         name: newRecipe.name,
         recipe: JSON.stringify(newRecipe)
     });
     recipe.save((err) => {
-        if (err) { res.status(500).send({ status: 'error', msg: err }); }
-        res.send({ status: 'added' });
+        if (err) { return res.status(500).send({ status: 'error', msg: err }); }
+        var savedRecipe = {
+            id: recipe.id,
+            name: recipe.name,
+            recipe: JSON.parse(recipe.recipe)
+        }
+        res.send({ status: 'added', recipe: savedRecipe });
     });
 });
 
 app.get('/api/recipe', (req, res) => {
     Recipe.find({}).then((recipes) => {
         recipes = recipes.map((item => {
+            //id: item.name.replace(/\s/g, '_').toLowerCase(),
             return {
+                id: item.id,
                 name: item.name,
-                id: item.name.replace(/\s/g, '_').toLowerCase(),
                 recipe: JSON.parse(item.recipe)
             }
         }));

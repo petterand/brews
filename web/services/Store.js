@@ -46,8 +46,8 @@ const actions = {
    },
    saveRecipe({ commit }, recipe) {
       return new Promise((resolve, reject) => {
-         RecipeService.saveRecipe(recipe).then(() => {
-            commit('addRecipe', recipe);
+         RecipeService.saveRecipe(recipe).then((response) => {
+            commit('addRecipe', response);
             resolve(recipe);
          }, (err) => {
             reject(err);

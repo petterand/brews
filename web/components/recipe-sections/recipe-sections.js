@@ -34,18 +34,24 @@ function formatMinutes(minutes) {
    return minutes;
 }
 
+function formatWeight(weight) {
+   if (weight < 1) {
+      weight = Utils.kgToGram(weight) + ' g';
+   } else {
+      weight = weight + ' kg';
+   }
+
+   return weight;
+}
+
 const RecipeSectionsComponent = Vue.extend({
    template,
    props: ["recipe", "editable"],
    methods: {
       getPercent: getPercent,
       getRoundedValue: getRoundedValue,
-      formatMinutes: formatMinutes
-   },
-   data: function () {
-      return {
-         fermentationStepNames: ['Primär', 'Sekundär']
-      }
+      formatMinutes: formatMinutes,
+      formatWeight: formatWeight
    }
 });
 

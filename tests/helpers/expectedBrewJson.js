@@ -17,9 +17,13 @@ module.exports = {
    notes: "",
    ibuMethod: "Tinseth",
    waters: "",
-   fermentationStages: 1,
-   primaryAge: "10",
-   primaryTemp: "18",
+   fermentationStages: [
+      {
+         name: "Primär",
+         age: "10",
+         temp: "18"
+      }
+   ],
    mashSteps: [
       {
          endTime: "67",

@@ -4,7 +4,8 @@ import store from '../../services/Store';
 import BeerXmlService from '../../services/BeerXmlService';
 import eventHub from '../../services/EventHub';
 import Utils from '../../services/Utils';
-
+import RecipeService from '../../services/RecipeService';
+import router from '../../router';
 
 function fileDropHandler(e) {
     e.preventDefault();
@@ -16,7 +17,6 @@ function fileDropHandler(e) {
             var content = e.target.result;
             BeerXmlService.parse(content).then((recipe) => {
                 this.recipe = recipe;
-                console.log(recipe);
             });
         }
         reader.readAsText(file);
@@ -49,7 +49,8 @@ const AddBrewComponent = Vue.extend({
         dragOver: onDragOver,
         dragEnter: onDragEnter,
         dragEnd: onDragEnd,
-        dragOut: onDragOut
+        dragOut: onDragOut,
+        saveRecipe: saveRecipe
     },
     data: function () {
         return {
@@ -58,7 +59,7 @@ const AddBrewComponent = Vue.extend({
         }
     },
     beforeRouteEnter(to, from, next) {
-        if (!store.state.isLoggedIn)  {
+        if (!store.state.isLoggedIn) {
             next('/404');
         } else {
             next();
@@ -67,3 +68,9 @@ const AddBrewComponent = Vue.extend({
 });
 
 export default AddBrewComponent;
+
+function saveRecipe() {
+    store.dispatch('saveRecipe', this.recipe).then((recipe) => {
+        this.$router.push('/');
+    });
+}

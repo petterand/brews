@@ -3,3 +3,4 @@ web/out
 .vscode
 app/configs/server-config.js
 dist/
+.DS_Store

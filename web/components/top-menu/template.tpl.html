@@ -9,7 +9,7 @@
    </ul>
    <div id="user-wrapper">
       <div id="login-wrapper">
-         <div id="login-content" :class="{'hidden': !showLogin}" v-on:transitionend="focusInput">
+         <div id="login-content" :class="{'hidden': !showLogin}" v-on:transitionend.self="focusInput">
             <input type="text" ref="username" placeholder="användare" v-model="creds.username">
             <input type="password" placeholder="LÖSEN" v-on:keyup="signin($event)" v-model="creds.password">
          </div>

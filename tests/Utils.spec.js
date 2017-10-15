@@ -21,4 +21,13 @@ describe('Utils', () => {
          expect(Utils.minutesToDays(10080)).to.equal(7);
       });
    });
+
+   describe('kgToGram', () => {
+      it('should return correct number of grams if below 1', () => {
+         expect(Utils.kgToGram(0.25)).to.equal(250);
+      });
+      it('should return kg if number is above 1', () => {
+         expect(Utils.kgToGram(1.25)).to.equal(1.25);
+      });
+   });
 });
