@@ -20,6 +20,16 @@ module.exports = {
         inline: true,
         port: 9099,
         proxy: {
+            '/api2': {
+                target: {
+                    host: 'brewlog.pandersson.net',
+                    protocol: 'http:',
+                    port: 80
+                },
+                logLevel: 'debug',
+                changeOrigin: true,
+                pathRewrite: { '^/api2': '' }
+            },
             '/api': 'http://localhost:8099'
         }
     },

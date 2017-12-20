@@ -24,5 +24,12 @@ export default {
       }, (err) => {
          return Promise.reject(err);
       });
+   },
+   updateRecipe(id, recipe) {
+      return Vue.http.put('/api/recipe/' + id, recipe).then((response) => {
+         return Promise.resolve(response.body.recipe);
+      }, (err) => {
+         return Promise.reject(err);
+      });
    }
 }

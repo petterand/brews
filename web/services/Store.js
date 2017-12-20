@@ -17,11 +17,12 @@ const mutations = {
       state.recipes = state.recipes.concat(recipes);
    },
    addRecipe(state, recipe) {
-      state.recipes.push(recipe);
+      state.recipes = [...recipes, recipe];
    },
    removeRecipe(state, recipe) {
-      var index = state.recipes.indexOf(recipe);
-      state.recipes.splice(index, 1);
+      state.recipes = state.recipes.filter((r) => {
+         return r.id !== recipe.id;
+      });
    },
    LOGIN_SUCCESS(state, user) {
       state.isLoggedIn = true;
@@ -36,6 +37,10 @@ const mutations = {
       if (result.user) {
          state.user = result.user;
       }
+   },
+   RECIPE_UPDATED(state, recipe) {
+      var index = state.recipes.find(r => r.id).indexOf(recipe.id);
+      Vue.set(state.recipes, index, recipe);
    }
 }
 
@@ -92,6 +97,14 @@ const actions = {
          AuthService.isAuthenticated().then((result) => {
             commit("IS_AUTHENTICATED", result);
             resolve(result.isAuthenticated);
+         });
+      });
+   },
+   updateRecipe({ commit }, recipe) {
+      return new Promise((resolve, reject) => {
+         RecipeService.updateRecipe(recipe.id, recipe).then((result) => {
+            commit("RECIPE_UPDATED", result.recipe);
+            resolve(result.recipe);
          });
       });
    }
