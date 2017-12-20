@@ -7,7 +7,6 @@ router.post('/', (req, res) => {
    Recipe.findOne({
       $and: [{ fermStart: { $exists: true } }, { fermStop: { $exists: false } }],
    }).then(recipe => {
-      console.log(req.body);
       if (recipe) {
          var t = req.body.temp;
          var temp = new Temp({
