@@ -30,7 +30,7 @@
          </div>
          <div class="input-item">
             <span class="input-item-title">Kokmängd:</span>
-            <span class="short-field">{{getRoundedValue(getRecipe.boilSize)}} L</span>
+            <span class="short-field">{{getRoundedValue(getRecipe.boilSize, 0)}} L</span>
          </div>
          <div class="input-item">
             <span class="input-item-title">Koktid:</span>
@@ -69,7 +69,7 @@
          <tr v-for="fermentable in getRecipe.fermentables">
             <td>{{ fermentable.name }}</td>
             <td>{{ getRoundedValue(fermentable.amount) }} kg</td>
-            <td>{{ getRoundedValue(getPercent(fermentable, getRecipe.fermentables)) }}%</td>
+            <td>{{ getRoundedValue(getPercent(fermentable, getRecipe.fermentables), 0) }}%</td>
          </tr>
       </table>
    </div>
@@ -85,7 +85,7 @@
          </tr>
          <tr v-for="hop in getRecipe.hops">
             <td>{{ hop.name }}</td>
-            <td>{{ formatWeight(getRoundedValue(hop.amount)) }}</td>
+            <td>{{ formatWeight(getRoundedValue(hop.amount,-3)) }}</td>
             <td>{{ formatMinutes(hop.time) }}</td>
             <td>{{ hop.use }}</td>
          </tr>
@@ -134,7 +134,7 @@
          </tr>
          <tr v-for="step in getRecipe.mashSteps">
             <td>{{ step.name }}</td>
-            <td>{{ getRoundedValue(step.stepTemp)}}</td>
+            <td>{{ getRoundedValue(step.stepTemp, 0)}}</td>
             <td>{{ getRoundedValue(formatMinutes(step.stepTime)) }}</td>
          </tr>
       </table>
@@ -150,7 +150,7 @@
          </tr>
          <tr v-for="stage in getRecipe.fermentationStages">
             <td>{{ stage.name }}</td>
-            <td>{{ getRoundedValue(stage.temp) }}</td>
+            <td>{{ getRoundedValue(stage.temp, 0) }}</td>
             <td>{{ getRoundedValue(stage.age) }}</td>
          </tr>
       </table>

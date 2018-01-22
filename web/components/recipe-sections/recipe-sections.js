@@ -18,11 +18,11 @@ function getRoundedValue(value, exp) {
    if (typeof value === 'string') {
       value = parseFloat(value);
    }
-   if (value < 1) { //round to two decimals
-      value = Utils.round10(value, -2);
-   } else {
-      value = Math.round(value);
-   }
+
+   exp = exp !== undefined ? exp : -2;
+
+   value = Utils.round10(value, exp);
+
    return value;
 }
 
