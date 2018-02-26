@@ -1,31 +1,48 @@
-div#brews-wrapper {
-   display: flex;
-   flex-flow: row wrap;
+@media only screen and (min-device-width: 320px) {
+   div#brews-wrapper {
+      display: flex;
+      flex-flow: column wrap;
+   }
+   a.brew-item {
+      border: 1px solid #c5c5c5;
+      flex: 0 1 100%;
+      margin-bottom: 2%;
+      margin-right: 2%;
+      text-decoration: none;
+      color: #000;
+      box-shadow: 2px 2px 2px 0px #d1d1d1;
+      h3,
+      p {
+         margin: 0;
+      }
+      .content-wrapper {
+         display: flex;
+         height: 100%;
+      }
+      .beer-color {
+         width: 10px;
+      }
+      .recipe-info {
+         padding: 8px;
+      }
+      .recipe-data {
+         margin-top: 12px;
+         font-size: 0.9em;
+      }
+   }
 }
 
-a.brew-item {
-   border: 1px solid #c5c5c5;
-   flex: 0 1 30%;
-   margin-bottom: 2%;
-   margin-right: 2%;
-   text-decoration: none;
-   color: #000;
-   box-shadow: 2px 2px 2px 0px #d1d1d1;
+@media only screen and (min-device-width: 640px) {
+   div#brews-wrapper {
+      flex-flow: row wrap;
+   }
+   a.brew-item {
+      flex: 0 1 30%;
+   }
+}
 
-   h3, p {
-      margin: 0;
-   }
-   .content-wrapper {
-      display: flex;
-   }
-   .beer-color {
-      width: 10px;
-   }
-   .recipe-info {
-      padding: 8px;
-   }
-   .recipe-data {
-      margin-top: 12px;
-      font-size: 0.9em;
+@media only screen and (min-device-width: 1280px) {
+   a.brew-item {
+      flex: 0 1 17%;
    }
 }
