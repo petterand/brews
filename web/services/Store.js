@@ -17,7 +17,7 @@ const mutations = {
       state.recipes = state.recipes.concat(recipes);
    },
    addRecipe(state, recipe) {
-      state.recipes = [...recipes, recipe];
+      state.recipes = [...state.recipes, recipe];
    },
    removeRecipe(state, recipe) {
       state.recipes = state.recipes.filter((r) => {
