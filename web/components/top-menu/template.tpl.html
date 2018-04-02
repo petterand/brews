@@ -6,6 +6,17 @@
       <li :class="{'active': linkIsActive('/add')}" v-if="$store.getters.isLoggedIn">
          <router-link to="/add">Lägg till recept</router-link>
       </li>
+      <li :class="{'active': linkIsActive('/co2')}">
+         <router-link to="/co2">
+            CO<sub>2</sub>-tabell
+         </router-link>
+      </li>
+      <li :class="{'active': linkIsActive('/rehydrating')}">
+         <router-link to="/rehydrating">Rehydrering</router-link>
+      </li>
+      <li :class="{'active': linkIsActive('/waterTreatment')}">
+         <router-link to="/waterTreatment">Vattenbehandling</router-link>
+      </li>
    </ul>
    <div id="user-wrapper">
       <div id="login-wrapper">
