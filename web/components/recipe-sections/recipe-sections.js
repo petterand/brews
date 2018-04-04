@@ -47,6 +47,10 @@ function formatWeight(weight) {
    return weight;
 }
 
+function formatLiquid(amount) {
+   return `${getRoundedValue(amount, -3)}L`;
+}
+
 function deleteRecipe() {
    store.dispatch('removeRecipe', this.recipe).then(() => {
       router.push('/');
@@ -109,7 +113,8 @@ const RecipeSectionsComponent = Vue.extend({
       formatWeight,
       deleteRecipe,
       startFermentation,
-      stopFermentation
+      stopFermentation,
+      formatLiquid
    }
 });
 

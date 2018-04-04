@@ -113,12 +113,10 @@
       <table class="table-3-cols">
          <tr>
             <th>Mängd</th>
-            <th>Enhet</th>
             <th>Namn</th>
          </tr>
          <tr v-for="misc in getRecipe.miscs">
-            <td>{{ misc.amount }}</td>
-            <td>{{ misc.amountIsWeight === 'true' ? 'kg' : 'L' }}</td>
+            <td>{{ misc.amountIsWeight === 'true' ? formatWeight(misc.amount, -3) : formatLiquid(misc.amount) }}</td>
             <td>{{ misc.name }}</td>
          </tr>
       </table>
