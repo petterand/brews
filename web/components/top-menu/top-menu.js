@@ -10,7 +10,9 @@ const TopMenuComponent = Vue.extend({
       return {
          showLogin: false,
          creds: { username: '', password: '' },
-         showUserMenu: false
+         showUserMenu: false,
+         showToolsMenu: false,
+         toolsMenuStyle: null
       }
    },
    created() {
@@ -46,6 +48,18 @@ const TopMenuComponent = Vue.extend({
          if (this.showLogin) {
             this.$refs.username.focus();
          }
+      },
+      toggleToolsMenu(event) {
+         this.showToolsMenu = !this.showToolsMenu;
+         if (this.showToolsMenu) {
+            this.toolsMenuStyle = {
+               left: `${event.target.offsetLeft}px`,
+               top: `45px`
+            }
+         }
+      },
+      closeToolsMenu() {
+         this.showToolsMenu = false;
       }
    }
 });

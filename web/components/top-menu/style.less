@@ -75,3 +75,41 @@
       }
    }
 }
+
+@media only screen and (max-device-width: 699px) {
+   li.menu_link-item_desktop {
+      display: none;
+   }
+   #mobile-tools-menu {
+      position: absolute;
+      background-color: #fff;
+      box-shadow: 2px 2px 5px 0px #c5c5c5;
+      &:before {
+         display: block;
+         position: relative;
+         content: "";
+         background-color: #fff;
+         height: 16px;
+         width: 16px;
+         transform: rotate(45deg);
+         left: 25px;
+         top: -8px;
+      }
+      ul {
+         margin: 0;
+         flex-direction: column;
+      }
+      a {
+         color: #000;
+      }
+   }
+}
+
+@media only screen and (min-device-width: 700px) {
+   li.menu_link-item_desktop {
+      display: list-item;
+   }
+   li.menu_link-item_mobile {
+      display: none;
+   }
+}

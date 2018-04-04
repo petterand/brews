@@ -1,23 +1,41 @@
 <div id="menu">
-   <ul>
+   <ul @click="closeToolsMenu">
       <li :class="{'active': linkIsActive('/')}">
          <router-link to="/">Lista</router-link>
       </li>
       <li :class="{'active': linkIsActive('/add')}" v-if="$store.getters.isLoggedIn">
          <router-link to="/add">Lägg till recept</router-link>
       </li>
-      <li :class="{'active': linkIsActive('/co2')}">
+      <li :class="{'active': linkIsActive('/co2')}" class="menu_link-item_desktop">
          <router-link to="/co2">
             CO<sub>2</sub>-tabell
          </router-link>
       </li>
-      <li :class="{'active': linkIsActive('/rehydrating')}">
+      <li :class="{'active': linkIsActive('/rehydrating')}" class="menu_link-item_desktop">
          <router-link to="/rehydrating">Rehydrering</router-link>
       </li>
-      <li :class="{'active': linkIsActive('/waterTreatment')}">
+      <li :class="{'active': linkIsActive('/waterTreatment')}" class="menu_link-item_desktop">
          <router-link to="/waterTreatment">Vattenbehandling</router-link>
       </li>
+      <li class="menu_link-item_mobile menu_link-item_mobile_tools">
+         <a @click.stop="toggleToolsMenu">Tools</a>
+      </li>
    </ul>
+   <div v-if="showToolsMenu" id="mobile-tools-menu" v-bind:style="toolsMenuStyle">
+      <ul @click="toggleToolsMenu">
+         <li>
+            <router-link to="/co2">
+               CO<sub>2</sub>-tabell
+            </router-link>
+         </li>
+         <li>
+            <router-link to="/rehydrating">Rehydrering</router-link>
+         </li>
+         <li>
+            <router-link to="/waterTreatment">Vattenbehandling</router-link>
+         </li>
+      </ul>
+   </div>
    <div id="user-wrapper">
       <div id="login-wrapper">
          <div id="login-content" :class="{'hidden': !showLogin}" v-on:transitionend.self="focusInput">

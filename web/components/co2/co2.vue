@@ -12,6 +12,11 @@ td {
   border: 1px solid #000;
   padding: 8px;
 }
+@media only screen and (max-device-width: 699px) {
+  table {
+    font-size: 0.5em;
+  }
+}
 </style>
 
 <script>
