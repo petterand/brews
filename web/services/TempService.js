@@ -1,14 +1,11 @@
 import Vue from 'vue';
 
 export default {
-   getTemp(from, to) {
-      let url = '/api2/temp?dateFrom=' + from;
-      if (to) {
-         url += '&dateTo=' + to;
-      }
+   getTemps(recipeId) {
+      let url = `/api/temps/${recipeId}`;
       return Vue.http.get(url).then((response) => {
          var temps = response.body;
-         return Promise.resolve(temps.data);
+         return Promise.resolve(temps);
       });
    }
 }

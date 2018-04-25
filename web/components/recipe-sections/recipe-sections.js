@@ -74,7 +74,7 @@ function stopFermentation() {
 function getTemps(recipe) {
    return new Promise((resolve, reject) => {
       if (recipe.fermStart) {
-         TempService.getTemp(recipe.fermStart, recipe.fermEnd).then((temps) => {
+         TempService.getTemps(recipe.id).then((temps) => {
             resolve(temps);
          });
       } else {

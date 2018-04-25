@@ -39,7 +39,7 @@ const mutations = {
       }
    },
    RECIPE_UPDATED(state, recipe) {
-      var index = state.recipes.find(r => r.id).indexOf(recipe.id);
+      var index = state.recipes.map(r => r.id).indexOf(recipe.id);
       Vue.set(state.recipes, index, recipe);
    }
 }
@@ -103,7 +103,7 @@ const actions = {
    updateRecipe({ commit }, recipe) {
       return new Promise((resolve, reject) => {
          RecipeService.updateRecipe(recipe.id, recipe).then((result) => {
-            commit("RECIPE_UPDATED", result.recipe);
+            commit("RECIPE_UPDATED", result);
             resolve(result.recipe);
          });
       });
