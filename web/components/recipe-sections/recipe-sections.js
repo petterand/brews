@@ -3,7 +3,10 @@ import template from './template.tpl.html';
 import Utils from '../../services/Utils';
 import store from '../../services/Store';
 import router from '../../router';
-import TempService from '../../services/TempService';
+import BatchService from '../../services/BatchService';
+import Batch from '../../components/batch/batch';
+import moment from 'moment';
+import { parse } from 'url';
 
 function getPercent(fermentable, allFermentables) {
    var totalWeight = 0;
@@ -57,54 +60,37 @@ function deleteRecipe() {
    });
 }
 
-function startFermentation() {
-   this.recipe.fermStart = (new Date()).getTime();
-   store.dispatch('updateRecipe', this.recipe).then(() => {
-
-   });
-}
-
-function stopFermentation() {
-   this.recipe.fermStop = (new Date()).getTime();
-   store.dispatch('updateRecipe', this.recipe).then(() => {
-
-   });
-}
-
-function getTemps(recipe) {
-   return new Promise((resolve, reject) => {
-      if (recipe.fermStart) {
-         TempService.getTemps(recipe.id).then((temps) => {
-            resolve(temps);
-         });
-      } else {
-         resolve([]);
-      }
+function createBatch() {
+   const batch = {
+      recipe_id: this.recipe.id
+   }
+   BatchService.createBatch(batch).then(_batch => {
+      store.dispatch('selectBatch', _batch);
+   }, err => {
+      console.log('Failed to create batch', err);
    });
 }
 
 const RecipeSectionsComponent = Vue.extend({
    template,
    props: ["recipe", "editable"],
+   created() {
+      this.$store.dispatch('fetchRecipeBatches', this.recipe.id).then(batches => {
+         this.$store.dispatch('selectBatch', batches[0]);
+      });
+   },
    data() {
       return {
-         temps: []
+         selectedBatch: null
       }
-   },
-   created() {
-      getTemps(this.recipe).then(function (temps) {
-         this.temps = temps;
-      }.bind(this));
    },
    computed: {
       getRecipe() {
          return this.recipe.recipe;
-      },
-      getLatestTemperature() {
-         let temp = this.temps.length > 0 ? this.temps[this.temps.length - 1].temperature : null;
-
-         return temp;
       }
+   },
+   beforeDestroy() {
+      this.$store.dispatch('selectBatch', null);
    },
    methods: {
       getPercent,
@@ -112,8 +98,7 @@ const RecipeSectionsComponent = Vue.extend({
       formatMinutes,
       formatWeight,
       deleteRecipe,
-      startFermentation,
-      stopFermentation,
+      createBatch,
       formatLiquid
    }
 });

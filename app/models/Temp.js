@@ -6,7 +6,7 @@ var tempSchema = new Schema({
    measured_at: { type: Date, required: true },
    temperature: { type: String, required: true },
    gravity: { type: String, required: true },
-   recipe_id: { type: String, required: true }
+   batch_id: { type: String, required: true }
 });
 
 tempSchema.pre('validate', function (next) {

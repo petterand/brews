@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import RecipeService from './RecipeService';
 import AuthService from './AuthService';
+import BatchService from './BatchService';
 
 Vue.use(Vuex);
 
@@ -9,7 +10,9 @@ const state = {
    recipes: [],
    isLoggedIn: false,
    user: {},
-   dataLoaded: false
+   dataLoaded: false,
+   selectedBatch: null,
+   recipeBatches: []
 };
 
 const mutations = {
@@ -41,6 +44,16 @@ const mutations = {
    RECIPE_UPDATED(state, recipe) {
       var index = state.recipes.map(r => r.id).indexOf(recipe.id);
       Vue.set(state.recipes, index, recipe);
+   },
+   RECIPE_BATCHES(state, batches) {
+      state.recipeBatches = batches;
+   },
+   SELECT_BATCH(state, batch) {
+      state.selectedBatch = batch;
+   },
+   UPDATE_BATCH(state, batch) {
+      var index = state.recipeBatches.map(b => b.id).indexOf(batch.id);
+      Vue.set(state.recipeBatches, index, batch);
    }
 }
 
@@ -106,6 +119,34 @@ const actions = {
             commit("RECIPE_UPDATED", result);
             resolve(result.recipe);
          });
+      });
+   },
+   fetchAllBatches({ commit }) {
+
+   },
+   fetchRecipeBatches({ commit }, recipeId) {
+      return new Promise((resolve, reject) => {
+         BatchService.getBatches(recipeId).then(batches => {
+            commit("RECIPE_BATCHES", batches);
+            resolve(batches);
+         }, err => {
+            reject(err);
+         })
+      });
+   },
+   selectBatch({ commit }, batch) {
+      commit("SELECT_BATCH", batch);
+   },
+   startFermentation({ commit, state }) {
+      BatchService.startFermentation(state.selectedBatch.id).then((batch) => {
+         commit("UPDATE_BATCH", batch);
+         commit("SELECT_BATCH", batch);
+      });
+   },
+   stopFermentation({ commit, state }) {
+      BatchService.stopFermentation(state.selectedBatch.id).then((batch) => {
+         commit("UPDATE_BATCH", batch);
+         commit("SELECT_BATCH", batch);
       });
    }
 };

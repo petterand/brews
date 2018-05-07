@@ -1,17 +1,17 @@
 const router = require('express').Router();
 const Temp = require('./models/Temp');
-const Recipe = require('./models/Recipe');
+const Batch = require('./models/Batch');
 
 
 router.post('/', (req, res) => {
-   Recipe.findOne({
+   Batch.findOne({
       $and: [{ fermStart: { $exists: true } }, { fermStop: { $exists: false } }],
-   }).then(recipe => {
-      if (recipe) {
+   }).then(batch => {
+      if (batch) {
          var temp = new Temp({
             temperature: req.body.Temp,
             gravity: req.body.SG,
-            recipe_id: recipe.id
+            batch_id: batch.id
          });
 
          temp.save(function (err) {
@@ -19,14 +19,14 @@ router.post('/', (req, res) => {
             res.end();
          });
       } else {
-         console.log('No active brew');
+         console.log('No active batch');
          res.end();
       }
    });
 });
 
-router.get('/:recipeId', (req, res) => {
-   Temp.find({ recipe_id: req.params.recipeId }).sort({ measured_at: 1 }).exec((err, temps) => {
+router.get('/:batchId', (req, res) => {
+   Temp.find({ batch_id: req.params.batchId }).sort({ measured_at: 1 }).exec((err, temps) => {
       if (err) { return res.status(500).send(err) }
 
       const returnValues = temps.map(temp => {
@@ -34,7 +34,7 @@ router.get('/:recipeId', (req, res) => {
             measured_at: temp.measured_at,
             temperature: temp.temperature,
             gravity: temp.gravity,
-            recipe_id: temp.recipe_id
+            recipe_id: temp.batch_id
          }
       });
 

@@ -17,6 +17,9 @@ describe('Utils', () => {
       it('should round 4.499971 to 4.5', () => {
          expect(Utils.round10(4.499971, -1)).to.equal(4.5);
       });
+      it('should round 21.666666666666668 to 21.7', () => {
+         expect(Utils.round10(21.666666666666668, -1)).to.equal(21.7);
+      });
    });
 
    describe('minutesToDays', () => {

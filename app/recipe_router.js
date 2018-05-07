@@ -52,8 +52,6 @@ router.put('/:id', isLoggedIn, (req, res) => {
    Recipe.findOne({ id: req.params.id }, (err, recipe) => {
       if (err) { return res.status(500).send({ status: 'error', msg: err }); }
       recipe.recipe = JSON.stringify(updatedRecipe.recipe) || recipe.recipe;
-      recipe.fermStart = updatedRecipe.fermStart || recipe.fermStart;
-      recipe.fermStop = updatedRecipe.fermStop || recipe.fermStop;
       recipe.save((err, r) => {
          if (err) { return res.status(500).send({ status: 'error', msg: err }); }
          r.recipe = JSON.parse(r.recipe);
