@@ -1,11 +1,8 @@
 <div id="batch">
    <div>
-      <h4>Temperatur och SG
-         <span v-if="$store.state.isLoggedIn" class="fermentation-icons">
-            <span class="fa fa-play start-fermentation" v-on:click="startFermentation" v-if="!fermentationStarted && !fermentationEnded"></span>
-            <span class="fa fa-square stop-fermentation" v-on:click="stopFermentation" v-if="fermentationStarted"></span>
-         </span>
-      </h4>
-      <div id="fermentation-stats-chart"></div>
+      <h4>Temperatur och SG</h4>
+      <div v-if="fermentationStarted" class="right-content"><a @click="stopFermentation">Stoppa registrering</a></div>
+      <p class="center-text" v-if="!fermentationStarted && !fermentationEnded">Ingen data har börjat registreras. <a @click="startFermentation">Starta registreringen</a></p>
+      <temp-chart :temps="temps" v-if="temps && fermentationStarted"></temp-chart>
    </div>
 </div>

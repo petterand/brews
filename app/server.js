@@ -57,7 +57,7 @@ app.use('/api/batch', batch_router);
 
 app.listen(8099, () => {
    console.log('Listening on 8099');
-   mongoose.connect(config.db_url, { useMongoClient: true }).then(() => {
+   mongoose.connect(config.db_url).then(() => {
       console.log('connected to database');
    }, (err) => {
       console.log("ERR", err);

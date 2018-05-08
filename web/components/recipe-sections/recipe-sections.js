@@ -5,8 +5,10 @@ import store from '../../services/Store';
 import router from '../../router';
 import BatchService from '../../services/BatchService';
 import Batch from '../../components/batch/batch';
+import SelectBox from '../../components/select/selectbox.vue';
 import moment from 'moment';
 import { parse } from 'url';
+
 
 function getPercent(fermentable, allFermentables) {
    var totalWeight = 0;
@@ -72,6 +74,10 @@ function createBatch() {
    });
 }
 
+function onChangeBatch(e) {
+   store.dispatch('selectBatchById', e.target.value);
+}
+
 const RecipeSectionsComponent = Vue.extend({
    template,
    props: ["recipe", "editable"],
@@ -93,6 +99,9 @@ const RecipeSectionsComponent = Vue.extend({
    beforeDestroy() {
       this.$store.dispatch('selectBatch', null);
    },
+   components: {
+      SelectBox
+   },
    methods: {
       getPercent,
       getRoundedValue,
@@ -100,7 +109,8 @@ const RecipeSectionsComponent = Vue.extend({
       formatWeight,
       deleteRecipe,
       createBatch,
-      formatLiquid
+      formatLiquid,
+      onChangeBatch
    }
 });
 

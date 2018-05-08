@@ -137,10 +137,14 @@ const actions = {
          })
       });
    },
-   addBatch({commit}, batch) {
-      commit('ADD_BATCH', batch); 
+   addBatch({ commit }, batch) {
+      commit('ADD_BATCH', batch);
    },
    selectBatch({ commit }, batch) {
+      commit("SELECT_BATCH", batch);
+   },
+   selectBatchById({ commit, state }, batchId) {
+      const batch = state.recipeBatches.find(b => b.id === batchId);
       commit("SELECT_BATCH", batch);
    },
    startFermentation({ commit, state }) {

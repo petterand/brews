@@ -154,17 +154,19 @@
       </table>
 
    </div>
-   <div class="recipe-section">
+   <div class="recipe-section batches">
       <h3>Bryggningar</h3>
       <div v-if="$store.state.recipeBatches.length === 0">
          <p class="center-text">Ingen bryggning startad för det här receptet. <a v-if="$store.state.isLoggedIn" @click="createBatch">Starta en ny</a></p>
       </div>
       <div v-if="$store.state.recipeBatches.length > 0">
-         <select name="batches" id="select-batches">
+
+         <select-box name="batches" select-id="select-batches" :change="onChangeBatch">   
             <option v-for="batch in $store.state.recipeBatches" :value="batch.id">{{batch.id}}</option>
-         </select>
+         </select-box>
+
          <a v-if="$store.state.isLoggedIn" @click="createBatch">Starta en ny</a>
       </div>
-      <batch v-if="$store.state.selectedBatch" :batch="selectedBatch"></batch>
+      <batch v-if="$store.state.selectedBatch" :batch="$store.state.selectedBatch"></batch>
    </div>
 </div>
