@@ -1,4 +1,4 @@
-<style scoped>
+<style lang="less" scoped>
 tr:first-child,
 td:first-child {
   font-weight: bold;

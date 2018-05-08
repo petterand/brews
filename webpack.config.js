@@ -1,5 +1,4 @@
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
+const { VueLoaderPlugin } = require('vue-loader');
 
 module.exports = {
    entry: [__dirname + '/web/app.js', __dirname + '/web/style/style.less'],
@@ -23,6 +22,10 @@ module.exports = {
          '/api': 'http://localhost:8099'
       }
    },
+   mode: 'development',
+   plugins: [
+      new VueLoaderPlugin()
+   ],
    module: {
       rules: [
          {

@@ -1,9 +1,11 @@
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const webpack = require('webpack');
+const { VueLoaderPlugin } = require('vue-loader');
 
 module.exports = {
    entry: [__dirname + '/web/app.js', __dirname + '/web/style/style.less'],
+   mode: 'production',
    output: {
       path: __dirname + '/dist/',
       filename: 'bundle.js'
@@ -35,10 +37,7 @@ module.exports = {
          },
          {
             test: /\.less$/,
-            use: ExtractTextPlugin.extract({
-               fallback: 'style-loader',
-               use: ['css-loader', 'less-loader']
-            })
+            use: [MiniCssExtractPlugin.loader, 'css-loader', 'less-loader']
          },
          {
             test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
@@ -51,7 +50,10 @@ module.exports = {
       ]
    },
    plugins: [
-      new ExtractTextPlugin('style.css'),
+      new VueLoaderPlugin(),
+      new MiniCssExtractPlugin({
+         filename: 'style.css'
+      }),
       new CopyWebpackPlugin([
          { from: 'web/prod.html', to: 'index.html' }
       ]),
