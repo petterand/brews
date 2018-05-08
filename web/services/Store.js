@@ -48,6 +48,9 @@ const mutations = {
    RECIPE_BATCHES(state, batches) {
       state.recipeBatches = batches;
    },
+   ADD_BATCH(state, batch) {
+      state.recipeBatches = [...state.recipeBatches, batch];
+   },
    SELECT_BATCH(state, batch) {
       state.selectedBatch = batch;
    },
@@ -133,6 +136,9 @@ const actions = {
             reject(err);
          })
       });
+   },
+   addBatch({commit}, batch) {
+      commit('ADD_BATCH', batch); 
    },
    selectBatch({ commit }, batch) {
       commit("SELECT_BATCH", batch);

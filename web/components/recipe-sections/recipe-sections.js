@@ -65,6 +65,7 @@ function createBatch() {
       recipe_id: this.recipe.id
    }
    BatchService.createBatch(batch).then(_batch => {
+      store.dispatch('addBatch', _batch);
       store.dispatch('selectBatch', _batch);
    }, err => {
       console.log('Failed to create batch', err);

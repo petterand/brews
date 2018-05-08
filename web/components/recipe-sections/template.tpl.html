@@ -1,7 +1,7 @@
 <div id="recipe-sections">
    <div class="recipe-section">
       <h3>Information
-         <span class="fa fa-trash-o delete-icon" v-on:click="deleteRecipe" v-if="!editable && $store.state.isLoggedIn"></span>
+         <span class="fa fa-trash-o delete-icon" @click="deleteRecipe" v-if="!editable && $store.state.isLoggedIn"></span>
       </h3>
       <div class="row">
 
@@ -155,9 +155,16 @@
 
    </div>
    <div class="recipe-section">
-      <h3>Batches
-         <span class="fa fa-plus create-batch" v-if="$store.state.isLoggedIn" v-on:click="createBatch"></span>
-      </h3>
+      <h3>Bryggningar</h3>
+      <div v-if="$store.state.recipeBatches.length === 0">
+         <p class="center-text">Ingen bryggning startad för det här receptet. <a v-if="$store.state.isLoggedIn" @click="createBatch">Starta en ny</a></p>
+      </div>
+      <div v-if="$store.state.recipeBatches.length > 0">
+         <select name="batches" id="select-batches">
+            <option v-for="batch in $store.state.recipeBatches" :value="batch.id">{{batch.id}}</option>
+         </select>
+         <a v-if="$store.state.isLoggedIn" @click="createBatch">Starta en ny</a>
+      </div>
       <batch v-if="$store.state.selectedBatch" :batch="selectedBatch"></batch>
    </div>
 </div>
