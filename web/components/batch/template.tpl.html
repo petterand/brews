@@ -1,8 +1,53 @@
 <div id="batch">
    <div>
+      <h4>Uppmätta värden</h4>
+      <div class="measured-values-inputs">
+         <div>
+            <label>Mash (pH)</label>
+            <input type="text" placeholder="5.2" v-model="measured_values.mash_ph" :disabled="!$store.state.isLoggedIn">
+         </div>
+         <div>
+            <label>Kokvolym (L)</label>
+            <input type="text" placeholder="28" v-model="measured_values.boil_vol" :disabled="!$store.state.isLoggedIn">
+         </div>
+         <div>
+            <label>Preboil Gravity (SG)</label>
+            <input type="text" placeholder="1.046" v-model="measured_values.preboil_sg" :disabled="!$store.state.isLoggedIn">
+         </div>
+         <div>
+            <label>Postboilvolym (L)</label>
+            <input type="text" placeholder="25" v-model="measured_values.postboil_vol" :disabled="!$store.state.isLoggedIn">
+         </div>
+         <div>
+            <label>OG (SG)</label>
+            <input type="text" placeholder="1.056" v-model="measured_values.og" :disabled="!$store.state.isLoggedIn">
+         </div>
+         <div>
+            <label>Jästankvolym (L)</label>
+            <input type="text" placeholder="23" v-model="measured_values.fermentation_vol" :disabled="!$store.state.isLoggedIn">
+         </div>
+         <div>
+            <label>FG (SG)</label>
+            <input type="text" placeholder="1.014" v-model="measured_values.fg" :disabled="!$store.state.isLoggedIn">
+         </div>
+      </div>
+      <button @click="saveMeasuredValues" v-if="$store.state.isLoggedIn">Spara</button>
+   </div>
+   <div>
       <h4>Temperatur och SG</h4>
-      <div v-if="fermentationStarted" class="right-content"><a @click="stopFermentation">Stoppa registrering</a></div>
-      <p class="center-text" v-if="!fermentationStarted && !fermentationEnded">Ingen data har börjat registreras. <a @click="startFermentation">Starta registreringen</a></p>
+      <div v-if="fermentationStarted" class="right-content">
+         <a @click="stopFermentation">Stoppa registrering</a>
+      </div>
+      <p class="center-text" v-if="!fermentationStarted && !fermentationEnded">Ingen data har börjat registreras.
+         <a @click="startFermentation" v-if="$store.state.isLoggedIn">Starta registreringen</a>
+      </p>
       <temp-chart :temps="temps" v-if="temps && fermentationStarted"></temp-chart>
+   </div>
+   <div>
+      <h4>Anteckningar</h4>
+      <div>
+         <textarea v-model="notes" :disabled="!$store.state.isLoggedIn"></textarea>
+         <button @click="saveBatchNotes" v-if="$store.state.isLoggedIn">Spara</button>
+      </div>
    </div>
 </div>

@@ -7,7 +7,14 @@ const batchSchema = new Schema({
    recipe_id: { type: String, required: true },
    fermStart: { type: Number },
    fermStop: { type: Number },
-   notes: { type: String }
+   notes: { type: String },
+   mash_ph: { type: String },
+   boil_vol: { type: String },
+   preboil_sg: { type: String },
+   postboil_vol: { type: String },
+   og: { type: String },
+   fermentation_vol: { type: String },
+   fg: { type: String }
 });
 
 const Batch = mongoose.model('Batch', batchSchema);

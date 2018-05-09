@@ -158,7 +158,20 @@ const actions = {
          commit("UPDATE_BATCH", batch);
          commit("SELECT_BATCH", batch);
       });
+   },
+   saveMeasuredvalues({ commit, state }, values) {
+      BatchService.saveMeasuredvalues(state.selectedBatch.id, values).then(batch => {
+         commit("UPDATE_BATCH", batch);
+         commit("SELECT_BATCH", batch);
+      });
+   },
+   saveBatchNotes({ commit, state }, notes) {
+      BatchService.saveNotes(state.selectedBatch.id, notes).then(batch => {
+         commit("UPDATE_BATCH", batch);
+         commit("SELECT_BATCH", batch);
+      });
    }
+
 };
 
 const getters = {

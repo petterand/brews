@@ -17,4 +17,21 @@
          }
       }
    }
+   .measured-values-inputs {
+      display: grid;
+      grid-template-columns: 33% 33% 33%;
+      >div {
+         display: flex;
+         flex-direction: column;
+         padding: 12px 12px 12px 0;
+         &:nth-child(3n+3) {
+            padding-right: 0;
+         }
+      }
+   }
+   textarea {
+      width: 100%;
+      height: 100px;
+      margin-bottom: 8px;
+   }
 }

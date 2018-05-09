@@ -42,5 +42,28 @@ export default {
       }, err => {
          return Promise.reject(err);
       });
+   },
+   saveNotes(batchId, _notes) {
+      const notes = { notes: _notes };
+      return Vue.http.put(`/api/batch/${batchId}/notes`, notes).then(response => {
+         if (response.body.status === 'updated') {
+            return Promise.resolve(response.body.batch);
+         } else {
+            return Promise.reject();
+         }
+      }, err => {
+         return Promise.reject(err);
+      })
+   },
+   saveMeasuredvalues(batchId, values) {
+      return Vue.http.put(`/api/batch/${batchId}/measuredValues`, values).then(response => {
+         if (response.body.status === 'updated') {
+            return Promise.resolve(response.body.batch);
+         } else {
+            return Promise.reject();
+         }
+      }, err => {
+         return Promise.reject(err);
+      })
    }
 }

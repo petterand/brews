@@ -38,6 +38,12 @@ const batchComponent = Vue.extend({
       stopFermentation() {
          this.$store.dispatch('stopFermentation');
       },
+      saveMeasuredValues() {
+         this.$store.dispatch('saveMeasuredvalues', this.measured_values);
+      },
+      saveBatchNotes() {
+         this.$store.dispatch('saveBatchNotes', this.notes);
+      },
       formatDateTime
    },
    computed: {
@@ -50,6 +56,7 @@ const batchComponent = Vue.extend({
       selectedBatch() {
          return this.$store.state.selectedBatch;
       }
+
    },
    watch: {
       batch: function (val) {
@@ -61,7 +68,17 @@ const batchComponent = Vue.extend({
    },
    data() {
       return {
-         temps: []
+         temps: [],
+         notes: this.$store.state.selectedBatch.notes,
+         measured_values: {
+            mash_ph: this.$store.state.selectedBatch.mash_ph || null,
+            boil_vol: this.$store.state.selectedBatch.boil_vol || null,
+            preboil_sg: this.$store.state.selectedBatch.preboil_sg || null,
+            postboil_vol: this.$store.state.selectedBatch.postboil_vol || null,
+            og: this.$store.state.selectedBatch.og || null,
+            fermentation_vol: this.$store.state.selectedBatch.fermentation_vol || null,
+            fg: this.$store.state.selectedBatch.fg || null,
+         }
       }
    }
 });
