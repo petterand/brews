@@ -1,8 +1,8 @@
 <template>
    <div>
-      <h4>Temperatur</h4>
+      <h5>Temperatur</h5>
       <div id="temp-stats-chart"></div>
-      <h4>Gravity</h4>
+      <h5>Gravity</h5>
       <div id="gravity-stats-chart"></div>
    </div>
 </template>
