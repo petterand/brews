@@ -36,7 +36,7 @@
    <div>
       <h4>Temperatur och SG</h4>
       <div v-if="fermentationStarted" class="right-content">
-         <a @click="stopFermentation">Stoppa registrering</a>
+         <a @click="stopFermentation" v-if="$store.state.isLoggedIn">Stoppa registrering</a>
       </div>
       <p class="center-text" v-if="!fermentationStarted && !fermentationEnded">Ingen data har börjat registreras.
          <a @click="startFermentation" v-if="$store.state.isLoggedIn">Starta registreringen</a>
