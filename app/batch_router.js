@@ -39,13 +39,15 @@ router.put('/:batchId/measuredValues', isLoggedIn, (req, res) => {
    Batch.findOne({ id: req.params.batchId }, (err, batch) => {
       if (err) { return res.status(500).send({ status: 'error', msg: err }) };
 
-      batch.mash_ph = updateValues.mash_ph || batch.mash_ph;
-      batch.boil_vol = updateValues.boil_vol || batch.boil_vol;
-      batch.preboil_sg = updateValues.preboil_sg || batch.preboil_sg;
-      batch.postboil_vol = updateValues.postboil_vol || batch.postboil_vol;
-      batch.og = updateValues.og || batch.og;
-      batch.boil_vol = updateValues.boil_vol || batch.boil_vol;
-      batch.fg = updateValues.fg || batch.fg;
+      batch.mash_ph = updateValues.mash_ph;
+      batch.boil_vol = updateValues.boil_vol;
+      batch.preboil_sg = updateValues.preboil_sg;
+      batch.postboil_vol = updateValues.postboil_vol;
+      batch.og = updateValues.og;
+      batch.boil_vol = updateValues.boil_vol;
+      batch.fg = updateValues.fg;
+      batch.fermentation_vol = updateValues.fermentation_vol;
+
       batch.save(err => {
          if (err) { return res.status(500).send({ status: 'error', msg: err }) };
          res.status(200).send({ status: 'updated', batch: batch });

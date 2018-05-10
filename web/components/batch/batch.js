@@ -39,6 +39,11 @@ const batchComponent = Vue.extend({
          this.$store.dispatch('stopFermentation');
       },
       saveMeasuredValues() {
+         Object.keys(this.measured_values).forEach(key => {
+            if (this.measured_values[key] === '-' || this.measured_values[key] === '') {
+               this.measured_values[key] = null;
+            }
+         })
          this.$store.dispatch('saveMeasuredvalues', this.measured_values);
       },
       saveBatchNotes() {
