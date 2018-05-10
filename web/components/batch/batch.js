@@ -71,13 +71,13 @@ const batchComponent = Vue.extend({
          temps: [],
          notes: this.$store.state.selectedBatch.notes,
          measured_values: {
-            mash_ph: this.$store.state.selectedBatch.mash_ph || null,
-            boil_vol: this.$store.state.selectedBatch.boil_vol || null,
-            preboil_sg: this.$store.state.selectedBatch.preboil_sg || null,
-            postboil_vol: this.$store.state.selectedBatch.postboil_vol || null,
-            og: this.$store.state.selectedBatch.og || null,
-            fermentation_vol: this.$store.state.selectedBatch.fermentation_vol || null,
-            fg: this.$store.state.selectedBatch.fg || null,
+            mash_ph: this.$store.state.selectedBatch.mash_ph || (this.$store.state.isLoggedIn ? null : '-'),
+            boil_vol: this.$store.state.selectedBatch.boil_vol || (this.$store.state.isLoggedIn ? null : '-'),
+            preboil_sg: this.$store.state.selectedBatch.preboil_sg || (this.$store.state.isLoggedIn ? null : '-'),
+            postboil_vol: this.$store.state.selectedBatch.postboil_vol || (this.$store.state.isLoggedIn ? null : '-'),
+            og: this.$store.state.selectedBatch.og || (this.$store.state.isLoggedIn ? null : '-'),
+            fermentation_vol: this.$store.state.selectedBatch.fermentation_vol || (this.$store.state.isLoggedIn ? null : '-'),
+            fg: this.$store.state.selectedBatch.fg || (this.$store.state.isLoggedIn ? null : '-'),
          }
       }
    }

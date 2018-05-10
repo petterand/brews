@@ -27,6 +27,18 @@
          &:nth-child(3n+3) {
             padding-right: 0;
          }
+         input[type=text] {
+            &::placeholder {
+               opacity: 0.4;
+               font-size: 0.8em;
+            }
+            &:disabled {
+               border: none;
+               &::placeholder {
+                  color: transparent;
+               }
+            }
+         }
       }
    }
    textarea {

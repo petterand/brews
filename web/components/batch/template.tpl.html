@@ -3,32 +3,32 @@
       <h4>Uppmätta värden</h4>
       <div class="measured-values-inputs">
          <div>
-            <label>Mash (pH)</label>
-            <input type="text" placeholder="5.2" v-model="measured_values.mash_ph" :disabled="!$store.state.isLoggedIn">
+            <label class="input-item-title">Mash (pH)</label>
+            <input type="text" placeholder="5.x" v-model="measured_values.mash_ph" :disabled="!$store.state.isLoggedIn">
          </div>
          <div>
-            <label>Kokvolym (L)</label>
-            <input type="text" placeholder="28" v-model="measured_values.boil_vol" :disabled="!$store.state.isLoggedIn">
+            <label class="input-item-title">Kokvolym (L)</label>
+            <input type="text" placeholder="30" v-model="measured_values.boil_vol" :disabled="!$store.state.isLoggedIn">
          </div>
          <div>
-            <label>Preboil Gravity (SG)</label>
-            <input type="text" placeholder="1.046" v-model="measured_values.preboil_sg" :disabled="!$store.state.isLoggedIn">
+            <label class="input-item-title">Preboil Gravity (SG)</label>
+            <input type="text" placeholder="1.xxx" v-model="measured_values.preboil_sg" :disabled="!$store.state.isLoggedIn">
          </div>
          <div>
-            <label>Postboilvolym (L)</label>
-            <input type="text" placeholder="25" v-model="measured_values.postboil_vol" :disabled="!$store.state.isLoggedIn">
+            <label class="input-item-title">Postboilvolym (L)</label>
+            <input type="text" placeholder="22" v-model="measured_values.postboil_vol" :disabled="!$store.state.isLoggedIn">
          </div>
          <div>
-            <label>OG (SG)</label>
-            <input type="text" placeholder="1.056" v-model="measured_values.og" :disabled="!$store.state.isLoggedIn">
+            <label class="input-item-title">OG (SG)</label>
+            <input type="text" placeholder="1.xxx" v-model="measured_values.og" :disabled="!$store.state.isLoggedIn">
          </div>
          <div>
-            <label>Jästankvolym (L)</label>
-            <input type="text" placeholder="23" v-model="measured_values.fermentation_vol" :disabled="!$store.state.isLoggedIn">
+            <label class="input-item-title">Jästankvolym (L)</label>
+            <input type="text" placeholder="20" v-model="measured_values.fermentation_vol" :disabled="!$store.state.isLoggedIn">
          </div>
          <div>
-            <label>FG (SG)</label>
-            <input type="text" placeholder="1.014" v-model="measured_values.fg" :disabled="!$store.state.isLoggedIn">
+            <label class="input-item-title">FG (SG)</label>
+            <input type="text" placeholder="1.xxx" v-model="measured_values.fg" :disabled="!$store.state.isLoggedIn">
          </div>
       </div>
       <button @click="saveMeasuredValues" v-if="$store.state.isLoggedIn">Spara</button>
