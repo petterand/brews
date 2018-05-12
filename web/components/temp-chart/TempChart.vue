@@ -1,8 +1,10 @@
 <template>
    <div>
       <h5>Temperatur</h5>
+      <p class="latest-reading" v-if="temps.length > 0">Senast avlästa värde: {{latestTempReading}}°C</p>
       <div id="temp-stats-chart"></div>
       <h5>Gravity</h5>
+      <p class="latest-reading" v-if="temps.length > 0">Senast avlästa värde: {{latestGravityReading}}</p>
       <div id="gravity-stats-chart"></div>
    </div>
 </template>
@@ -88,9 +90,16 @@ export default {
       }.bind(this)
     );
   },
+  computed: {
+    latestGravityReading() {
+      return this.temps[this.temps.length - 1].gravity;
+    },
+    latestTempReading() {
+      return Utils.round10(this.temps[this.temps.length - 1].temperature, -1);
+    }
+  },
   watch: {
     temps: function(val) {
-      console.log(val);
       GoogleCharts.load(
         function() {
           drawCharts(this.temps);
@@ -101,6 +110,8 @@ export default {
 };
 </script>
 
-<style>
-
+<style lang="less">
+p.latest-reading {
+  font-size: 0.8em;
+}
 </style>

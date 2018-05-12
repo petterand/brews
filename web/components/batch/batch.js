@@ -60,6 +60,15 @@ const batchComponent = Vue.extend({
       },
       selectedBatch() {
          return this.$store.state.selectedBatch;
+      },
+      calculatedABV() {
+         let abv = 0;
+         const OG = parseFloat(this.measured_values.og);
+         const FG = parseFloat(this.measured_values.fg);
+         if ((OG && OG !== '-') && (FG && FG !== '-')) {
+            abv = ((76.08 * (OG - FG) / (1.775 - OG)) * (FG / 0.794))
+         }
+         return abv > 0 ? abv : '-';
       }
 
    },
