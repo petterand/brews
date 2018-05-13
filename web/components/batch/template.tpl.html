@@ -31,8 +31,8 @@
             <input type="text" placeholder="1.xxx" v-model="measured_values.fg" :disabled="!$store.state.isLoggedIn">
          </div>
          <div>
-            <p class="input-item-title">Est. ABV</p>
-            <div>{{calculatedABV}}</div>
+            <label class="input-item-title">Est. ABV</label>
+            <input type="text" :value="calculatedABV" disabled>
          </div>
       </div>
       <button @click="saveMeasuredValues" v-if="$store.state.isLoggedIn">Spara</button>
