@@ -24,12 +24,13 @@ router.post('/', isLoggedIn, (req, res) => {
 router.get('/', (req, res) => {
    Recipe.find({}).then((recipes) => {
       recipes = recipes.map((item => {
+         const versions = item.versions.map(v => JSON.parse(v));
+         const latestVersionNumber = Math.max(versions.map(v => parseInt(v.version)));
          return {
             id: item.id,
             name: item.name,
-            recipe: JSON.parse(item.recipe),
-            fermStart: item.fermStart,
-            fermStop: item.fermStop
+            versions,
+            latestVersionNumber
          }
       }));
       res.send(recipes);
@@ -46,6 +47,26 @@ router.delete('/:id', isLoggedIn, (req, res) => {
       res.status(500).send({ status: 'error', msg: err });
    });
 });
+
+// router.put('/all/updateVersions', (req, res) => {
+//    var promises = [];
+//    Recipe.find({}, (err, recipes) => {
+//       recipes.forEach(r => {
+//          r.versions = r.versions.map(v => JSON.parse(v));
+
+//          r.save((err, r) => {
+//             if (err) { return promises.push(Promise.reject(err)) }
+//             promises.push(Promise.resolve('ok'));
+//          })
+//       });
+
+//       Promise.all(promises).then(result => {
+//          res.status(200).send('all updated');
+//       }).catch(err => {
+//          res.status(500).send(err);
+//       });
+//    });
+// })
 
 router.put('/:id', isLoggedIn, (req, res) => {
    var updatedRecipe = req.body;

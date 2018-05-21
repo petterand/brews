@@ -62,6 +62,11 @@ function deleteRecipe() {
    });
 }
 
+function editRecipe() {
+   const editDialog = document.querySelector('#editRecipeDialog');
+   editDialog.showModal();
+}
+
 function createBatch() {
    const batch = {
       recipe_id: this.recipe.id
@@ -93,7 +98,12 @@ const RecipeSectionsComponent = Vue.extend({
    },
    computed: {
       getRecipe() {
-         return this.recipe.recipe;
+         const versionNumber = this.recipe.latestVersionNumber
+         const recipe = this.recipe.versions.find(r => {
+            return parseInt(r.version) === versionNumber;
+         });
+
+         return recipe;
       }
    },
    beforeDestroy() {
@@ -108,6 +118,7 @@ const RecipeSectionsComponent = Vue.extend({
       formatMinutes,
       formatWeight,
       deleteRecipe,
+      editRecipe,
       createBatch,
       formatLiquid,
       onChangeBatch

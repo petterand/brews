@@ -1,9 +1,5 @@
 <div id="add-brew-wrapper">
-    <div id="file-drop-zone" @drop="drop" @dragover="dragOver" @dragenter="dragEnter" @dragend="dragEnd" @dragleave="dragOut"
-        :class="{'file-hover': activeHover}">
-        <span>Släpp din beerxml fil här!</span>
-        <span class="fa fa-file-o file-icon"></span>
-    </div>
+   <file-drop-area :on-file-parsed="onFileParsed"></file-drop-area>
     <div v-if="recipe">
         <recipe-sections id="input-wrapper" :editable="true" :recipe="recipe"></recipe-sections>
         <div class="button-wrapper">

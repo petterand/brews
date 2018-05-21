@@ -2,6 +2,6 @@
    <div class="beer-color" v-bind:style="beerColor"></div>
    <div class="recipe-info">
       <h3>{{ recipe.name }}</h3>
-      <p class="recipe-data"> <span v-if="recipe.recipe.style">{{ recipe.recipe.style.name }},</span> {{ recipe.recipe.estAbv }}% ABV</p>
+      <p class="recipe-data"> <span v-if="latestRecipe.style">{{ latestRecipe.style.name }},</span> {{ latestRecipe.estAbv }}% ABV</p>
    </div>
 </div>

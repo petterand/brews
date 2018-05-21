@@ -6,8 +6,16 @@ var RecipeListItem = Vue.extend({
    template,
    props: ['recipe'],
    computed: {
-      beerColor: function () {
-         return { "background-color": Utils.srmToHex(this.recipe.recipe.estColor) };
+      beerColor() {
+         return { "background-color": Utils.srmToHex(this.latestRecipe.estColor) };
+      },
+      latestRecipe() {
+         const versionNumber = this.recipe.latestVersionNumber
+         const recipe = this.recipe.versions.find(r => {
+            return parseInt(r.version) === versionNumber;
+         });
+
+         return recipe;
       }
    }
 })

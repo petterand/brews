@@ -4,3 +4,4 @@ web/out
 app/configs/server-config.js
 dist/
 .DS_Store
+todos
