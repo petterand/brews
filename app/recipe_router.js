@@ -8,15 +8,17 @@ router.post('/', isLoggedIn, (req, res) => {
    var recipe = new Recipe({
       id: newRecipe.name.replace(/\s/g, '_').toLowerCase(),
       name: newRecipe.name,
-      recipe: JSON.stringify(newRecipe),
+      versions: [JSON.stringify(newRecipe)],
    });
    recipe.save((err) => {
       if (err) { return res.status(500).send({ status: 'error', msg: err }); }
-      var savedRecipe = {
+      const versions = recipe.versions.map(v => JSON.parse(v));
+      const savedRecipe = {
          id: recipe.id,
          name: recipe.name,
-         recipe: JSON.parse(recipe.recipe)
-      }
+         versions,
+         latestVersionNumber: versions[0].version
+      };
       res.send({ status: 'added', recipe: savedRecipe });
    });
 });
@@ -25,7 +27,7 @@ router.get('/', (req, res) => {
    Recipe.find({}).then((recipes) => {
       recipes = recipes.map((item => {
          const versions = item.versions.map(v => JSON.parse(v));
-         const latestVersionNumber = Math.max(versions.map(v => parseInt(v.version)));
+         const latestVersionNumber = Math.max(...versions.map(v => parseInt(v.version)));
          return {
             id: item.id,
             name: item.name,
@@ -70,14 +72,45 @@ router.delete('/:id', isLoggedIn, (req, res) => {
 
 router.put('/:id', isLoggedIn, (req, res) => {
    var updatedRecipe = req.body;
+
    Recipe.findOne({ id: req.params.id }, (err, recipe) => {
       if (err) { return res.status(500).send({ status: 'error', msg: err }); }
-      recipe.recipe = JSON.stringify(updatedRecipe.recipe) || recipe.recipe;
-      recipe.save((err, r) => {
-         if (err) { return res.status(500).send({ status: 'error', msg: err }); }
-         r.recipe = JSON.parse(r.recipe);
-         res.send({ status: 'updated', recipe: r });
-      });
+      if (updatedRecipe.recipe) {
+         if (updatedRecipe.update === 'new_version') {
+            const versions = recipe.versions.map(v => JSON.parse(v)).map(v => parseInt(v.version));
+            const latestVersion = Math.max(versions);
+            updatedRecipe.recipe.version = latestVersion + 1;
+            recipe.versions.push(JSON.stringify(updatedRecipe.recipe))
+         } else if (updatedRecipe.update === 'replace') {
+            if (!updatedRecipe.replaceVersion) {
+               return res.status(400).send({ status: 'error', msg: 'missing version to replace' });
+            }
+            const versions = recipe.versions.map(v => JSON.parse(v));
+            const indexToReplace = versions.findIndex(v => {
+               return parseInt(v.version) === parseInt(updatedRecipe.replaceVersion);
+            });
+            updatedRecipe.recipe.version = updatedRecipe.replaceVersion;
+            versions[indexToReplace] = JSON.stringify(updatedRecipe.recipe);
+
+            recipe.versions = versions;
+         }
+
+         recipe.save((err, r) => {
+            if (err) { return res.status(500).send({ status: 'error', msg: err }); }
+            const versions = r.versions.map(v => { return JSON.parse(v) });
+            const latestVersionNumber = Math.max(...versions.map(v => parseInt(v.version)));
+            const returnRecipe = {
+               id: r.id,
+               name: r.name,
+               versions,
+               latestVersionNumber
+            }
+            res.send({ status: 'updated', "recipe": returnRecipe });
+         });
+      } else {
+         return res.status(400).send({ status: 'error', msg: 'No recipe found with that id' });
+      }
+
    });
 });
 

@@ -6,9 +6,9 @@
      <h5>{{updatedRecipe.name}}</h5>
      <p>Vill du skapa en ny version eller uppdatera den nuvarande versionen?</p>
      <label for="createVersionChoice">Ny version:</label>
-     <input type="radio" id="createVersionChoice" name="updateOrVersion" v-model="updateOrVersion" value="version">
+     <input type="radio" id="createVersionChoice" name="updateOrVersion" v-model="updateOrVersion" value="new_version">
      <label for="updateRecipeChoice">Uppdatera:</label>
-     <input type="radio" id="updateRecipeChoice" name="updateOrVersion" v-model="updateOrVersion" value="update">
+     <input type="radio" id="updateRecipeChoice" name="updateOrVersion" v-model="updateOrVersion" value="replace">
      <div class="dialog-button-wrapper"><button @click="save">Spara</button></div>
   </div>
 </div>
@@ -26,13 +26,25 @@ export default {
       this.updatedRecipe = _recipe;
     },
     save() {
-      console.log(this.updateOrVersion);
+      if (this.updateOrVersion === "replace") {
+        const dispatchObject = {
+          recipe: this.updatedRecipe,
+          version: parseInt(this.$store.state.selectedRecipeVersion.version)
+        };
+        this.$store
+          .dispatch("replaceRecipeVersion", dispatchObject)
+          .then(res => {
+            document.querySelector("#editRecipeDialog").close();
+          });
+      } else if (this.updateOrVersion === "new_version") {
+        this.$store.dispatch("addRecipeVersion", this.updatedRecipe);
+      }
     }
   },
   data() {
     return {
       updatedRecipe: null,
-      updateOrVersion: "version"
+      updateOrVersion: "new_version"
     };
   }
 };

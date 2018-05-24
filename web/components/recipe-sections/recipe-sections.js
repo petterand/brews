@@ -57,7 +57,7 @@ function formatLiquid(amount) {
 }
 
 function deleteRecipe() {
-   store.dispatch('removeRecipe', this.recipe).then(() => {
+   store.dispatch('removeRecipe', store.state.selectedRecipe).then(() => {
       router.push('/');
    });
 }
@@ -83,34 +83,44 @@ function onChangeBatch(e) {
    store.dispatch('selectBatchById', e.target.value);
 }
 
+function selectVersionAndFetchBatches() {
+   store.dispatch('selectRecipeVersion', store.getters.getLatestVersion);
+   store.dispatch('fetchRecipeBatches', store.state.selectedRecipe.id).then(batches => {
+      store.dispatch('selectBatch', batches[0]);
+   });
+}
+
 const RecipeSectionsComponent = Vue.extend({
    template,
-   props: ["recipe", "editable"],
+   props: ["editable", "recipe"],
    created() {
-      this.$store.dispatch('fetchRecipeBatches', this.recipe.id).then(batches => {
-         this.$store.dispatch('selectBatch', batches[0]);
-      });
+      if (!this.$store.state.selectedRecipeVersion) {
+         selectVersionAndFetchBatches()
+      }
    },
    data() {
       return {
-         selectedBatch: null
+         selectedBatch: null,
+         selectedVersion: this.recipe.latestVersionNumber
       }
    },
    computed: {
       getRecipe() {
-         const versionNumber = this.recipe.latestVersionNumber
-         const recipe = this.recipe.versions.find(r => {
-            return parseInt(r.version) === versionNumber;
-         });
-
-         return recipe;
+         return this.recipe.versions.find(v => parseInt(v.version) === parseInt(this.selectedVersion));
       }
    },
    beforeDestroy() {
       this.$store.dispatch('selectBatch', null);
+      this.$store.commit('SELECT_RECIPE', null);
+      this.$store.commit('SELECT_RECIPE_VERSION', null);
    },
    components: {
       SelectBox
+   },
+   watch: {
+      recipe(val) {
+         selectVersionAndFetchBatches();
+      }
    },
    methods: {
       getPercent,

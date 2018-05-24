@@ -17,7 +17,8 @@ const AddBrewComponent = Vue.extend({
       saveRecipe: saveRecipe,
       onFileParsed(recipe) {
          this.recipe = {
-            recipe
+            versions: [recipe],
+            latestVersionNumber: parseInt(recipe.version)
          }
       }
    },
@@ -38,7 +39,7 @@ const AddBrewComponent = Vue.extend({
 export default AddBrewComponent;
 
 function saveRecipe() {
-   store.dispatch('saveRecipe', this.recipe.recipe).then((recipe) => {
+   store.dispatch('saveRecipe', this.recipe.versions[0]).then((recipe) => {
       this.$router.push('/');
    });
 }

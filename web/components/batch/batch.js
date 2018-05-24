@@ -3,7 +3,6 @@ import template from './template.tpl.html';
 import TempService from '../../services/TempService';
 import BatchService from '../../services/BatchService';
 import TempChart from '../temp-chart/TempChart.vue';
-
 import Utils from '../../services/Utils';
 
 function getTemps(id) {
@@ -68,7 +67,7 @@ const batchComponent = Vue.extend({
          if ((OG && OG !== '-') && (FG && FG !== '-')) {
             abv = ((76.08 * (OG - FG) / (1.775 - OG)) * (FG / 0.794))
          }
-         return abv > 0 ? abv : '-';
+         return abv > 0 ? `${Utils.round10(abv, -1)}%` : '-';
       }
 
    },

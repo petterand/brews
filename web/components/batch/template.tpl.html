@@ -45,7 +45,7 @@
       <p class="center-text" v-if="!fermentationStarted && !fermentationEnded">Ingen data har börjat registreras.
          <a @click="startFermentation" v-if="$store.state.isLoggedIn">Starta registreringen</a>
       </p>
-      <temp-chart :temps="temps" v-if="temps && fermentationStarted"></temp-chart>
+      <temp-chart :temps="temps" v-if="temps"></temp-chart>
    </div>
    <div>
       <h4>Anteckningar</h4>

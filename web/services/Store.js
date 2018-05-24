@@ -11,6 +11,8 @@ const state = {
    isLoggedIn: false,
    user: {},
    dataLoaded: false,
+   selectedRecipe: null,
+   selectedRecipeVersion: null,
    selectedBatch: null,
    recipeBatches: []
 };
@@ -45,6 +47,13 @@ const mutations = {
       var index = state.recipes.map(r => r.id).indexOf(recipe.id);
       Vue.set(state.recipes, index, recipe);
    },
+   SELECT_RECIPE(state, recipe) {
+      //state.selectedRecipe = recipe;
+      Vue.set(state, 'selectedRecipe', recipe)
+   },
+   SELECT_RECIPE_VERSION(state, version) {
+      state.selectedRecipeVersion = version;
+   },
    RECIPE_BATCHES(state, batches) {
       state.recipeBatches = batches;
    },
@@ -73,7 +82,7 @@ const actions = {
       return new Promise((resolve, reject) => {
          RecipeService.saveRecipe(recipe).then((response) => {
             commit('addRecipe', response);
-            resolve(recipe);
+            resolve(response);
          }, (err) => {
             reject(err);
          });
@@ -120,9 +129,15 @@ const actions = {
       return new Promise((resolve, reject) => {
          RecipeService.updateRecipe(recipe.id, recipe).then((result) => {
             commit("RECIPE_UPDATED", result);
-            resolve(result.recipe);
+            resolve(result);
          });
       });
+   },
+   selectRecipe({ commit }, recipe) {
+      commit("SELECT_RECIPE", recipe);
+   },
+   selectRecipeVersion({ commit }, version) {
+      commit("SELECT_RECIPE_VERSION", version);
    },
    fetchAllBatches({ commit }) {
 
@@ -170,6 +185,33 @@ const actions = {
          commit("UPDATE_BATCH", batch);
          commit("SELECT_BATCH", batch);
       });
+   },
+   addRecipeVersion({ commit, state }, recipe) {
+      const recipeDetails = {
+         update: 'new_version',
+         recipe
+      }
+      return new Promise((resolve, reject) => {
+         RecipeService.updateRecipe(state.selectedRecipe.id, recipeDetails).then(updatedRecipe => {
+            commit("RECIPE_UPDATED", updatedRecipe);
+            commit("SELECT_RECIPE", updatedRecipe);
+            resolve(updatedRecipe);
+         });
+      });
+   },
+   replaceRecipeVersion({ commit, state }, dispatchObject) {
+      const recipeDetails = {
+         update: 'replace',
+         recipe: dispatchObject.recipe,
+         replaceVersion: dispatchObject.version
+      };
+      return new Promise((resolve, reject) => {
+         RecipeService.updateRecipe(state.selectedRecipe.id, recipeDetails).then(updatedRecipe => {
+            commit("RECIPE_UPDATED", updatedRecipe);
+            commit("SELECT_RECIPE", updatedRecipe);
+            resolve(updatedRecipe);
+         });
+      });
    }
 
 };
@@ -177,6 +219,12 @@ const actions = {
 const getters = {
    getRecipe: (state) => (id) => {
       return state.recipes.find(item => item.id === id);
+   },
+   getLatestVersion: (state) => {
+      const versionNumber = state.selectedRecipe.latestVersionNumber
+      return state.selectedRecipe.versions.find(r => {
+         return parseInt(r.version) === versionNumber;
+      });
    },
    isLoggedIn: (state) => {
       return state.isLoggedIn;
