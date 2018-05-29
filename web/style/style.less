@@ -57,6 +57,18 @@ button {
    }
 }
 
+.grid-block {
+   display: grid;
+   row-gap: 12px;
+   column-gap: 12px;
+   &_3 {
+      grid-template-columns: repeat(3, 1fr);
+   }
+   &_4 {
+      grid-template-columns: repeat(4, 1fr);
+   }
+}
+
 @import "../components/add-brew/style";
 @import "../components/recipe-list/style";
 @import "../components/recipe-sections/style";

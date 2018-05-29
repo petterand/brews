@@ -4,7 +4,7 @@
          <span class="fa fa-trash-o delete-icon" @click="deleteRecipe(getRecipe)" v-if="!editable && $store.state.isLoggedIn"></span>
          <span class="fa fa-edit edit-icon" @click="editRecipe" v-if="!editable && $store.state.isLoggedIn"></span>
       </h3>
-      <div class="row">
+      <div class="grid-block grid-block_3">
 
          <div class="input-item" v-if="editable">
             <label for="name" class="input-item-title">Namn:</label>
@@ -23,8 +23,7 @@
             <span class="input-item-title">Stil:</span>
             <span>{{getRecipe.style.name}}</span>
          </div>
-      </div>
-      <div class="row">
+
          <div class="input-item">
             <span class="input-item-title">Batchstorlek:</span>
             <span class="short-field">{{ getRoundedValue(getRecipe.batchSize) }} L</span>
@@ -37,9 +36,10 @@
             <span class="input-item-title">Koktid:</span>
             <span class="short-field">{{formatMinutes(getRoundedValue(getRecipe.boilTime))}}</span>
          </div>
+
       </div>
       <h4>Uppskattade värden</h4>
-      <div class="row row-4">
+      <div class="grid-block grid-block_4">
          <div class="input-item">
             <span class="input-item-title">OG:</span>
             <span class="short-field">{{ getRecipe.estOG }}</span>
@@ -158,11 +158,13 @@
    <div class="recipe-section batches">
       <h3>Bryggningar</h3>
       <div v-if="$store.state.recipeBatches.length === 0">
-         <p class="center-text">Ingen bryggning startad för det här receptet. <a v-if="$store.state.isLoggedIn" @click="createBatch">Starta en ny</a></p>
+         <p class="center-text">Ingen bryggning startad för det här receptet.
+            <a v-if="$store.state.isLoggedIn" @click="createBatch">Starta en ny</a>
+         </p>
       </div>
       <div v-if="$store.state.recipeBatches.length > 0">
 
-         <select-box name="batches" select-id="select-batches" :change="onChangeBatch">   
+         <select-box name="batches" select-id="select-batches" :change="onChangeBatch">
             <option v-for="batch in $store.state.recipeBatches" :value="batch.id">{{batch.id}}</option>
          </select-box>
 

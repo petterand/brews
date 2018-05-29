@@ -1,4 +1,4 @@
-@media only screen and (min-device-width: 320px) {
+@media only screen and (min-width: 320px) {
    #input-wrapper {
       display: flex;
       flex-flow: row wrap;
@@ -14,6 +14,14 @@
       padding: 12px;
       .row {
          flex-direction: column;
+      }
+      .grid-block {
+         &_3 {
+            grid-template-columns: initial;
+         }
+         &_4 {
+            grid-template-columns: initial;
+         }
       }
       h3 {
          margin-bottom: 20px;
@@ -79,7 +87,6 @@
       flex-direction: row;
       width: 100%;
       box-sizing: border-box;
-      padding: 0 12px 12px 0;
       &-inline {
          display: inline-flex;
          flex-direction: column;
@@ -98,7 +105,7 @@
    }
 }
 
-@media only screen and (min-device-width: 640px) {
+@media only screen and (min-width: 640px) {
    #input-wrapper {
       display: flex;
       flex-flow: row wrap;
@@ -109,9 +116,16 @@
       .row {
          flex-direction: row;
       }
+      .grid-block {
+         &_3 {
+            grid-template-columns: repeat(3, 1fr);
+         }
+         &_4 {
+            grid-template-columns: repeat(4, 1fr);
+         }
+      }
    }
    .input-item {
       flex-direction: column;
-      width: 33%;
    }
 }
