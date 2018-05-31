@@ -4,6 +4,7 @@ import TempService from '../../services/TempService';
 import BatchService from '../../services/BatchService';
 import TempChart from '../temp-chart/TempChart.vue';
 import Utils from '../../services/Utils';
+import moment from 'moment';
 
 function getTemps(id) {
    return new Promise((resolve, reject) => {
@@ -29,6 +30,12 @@ const batchComponent = Vue.extend({
             this.temps = temps;
          }.bind(this));
       }
+      var ws = new WebSocket('ws://localhost:40510');
+
+      ws.onmessage = function (ev) {
+         var obj = JSON.parse(ev.data);
+         this.live = obj;
+      }.bind(this);
    },
    methods: {
       startFermentation() {
@@ -69,7 +76,6 @@ const batchComponent = Vue.extend({
          }
          return abv > 0 ? `${Utils.round10(abv, -1)}%` : '-';
       }
-
    },
    watch: {
       batch: function (val) {
@@ -83,6 +89,7 @@ const batchComponent = Vue.extend({
       return {
          temps: [],
          notes: this.$store.state.selectedBatch.notes,
+         live: null,
          measured_values: {
             mash_ph: this.$store.state.selectedBatch.mash_ph || (this.$store.state.isLoggedIn ? null : '-'),
             boil_vol: this.$store.state.selectedBatch.boil_vol || (this.$store.state.isLoggedIn ? null : '-'),

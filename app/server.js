@@ -8,6 +8,7 @@ const mongoose = require('mongoose');
 const recipe_router = require('./recipe_router');
 const temps_router = require('./temps_router');
 const batch_router = require('./batch_router');
+const live_router = require('./live_router');
 const config = require('./configs/server-config');
 
 const app = express();
@@ -54,6 +55,8 @@ app.get('/api/isAuthenticated', (req, res) => {
 app.use('/api/recipe', recipe_router);
 app.use('/api/temps', temps_router);
 app.use('/api/batch', batch_router);
+
+app.use('/live', live_router(app));
 
 app.listen(8099, () => {
    console.log('Listening on 8099');

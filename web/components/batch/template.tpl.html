@@ -42,6 +42,11 @@
       <div v-if="fermentationStarted" class="right-content">
          <a @click="stopFermentation" v-if="$store.state.isLoggedIn">Stoppa registrering</a>
       </div>
+      <div v-if="live && fermentationStarted" class="live-content">
+         <p><span class="input-item-title">SG</span>{{live.SG}}</p>
+         <p><span class="input-item-title">Temperatur</span>{{live.Temp}}</p>
+         <p><span class="input-item-title">Tid</span>{{formatDateTime(live.date)}}</p>
+      </div>
       <p class="center-text" v-if="!fermentationStarted && !fermentationEnded">Ingen data har börjat registreras.
          <a @click="startFermentation" v-if="$store.state.isLoggedIn">Starta registreringen</a>
       </p>
