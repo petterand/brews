@@ -31,13 +31,13 @@ const batchComponent = Vue.extend({
          }.bind(this));
       }
 
-      const protocol = window.location.protocol === 'https:' ? 'wss' : 'ws';
-      var ws = new WebSocket(`${protocol}://${window.location.hostname}:40510`);
+      // const protocol = window.location.protocol === 'https:' ? 'wss' : 'ws';
+      // var ws = new WebSocket(`${protocol}://${window.location.hostname}/${protocol}`);
 
-      ws.onmessage = function (ev) {
-         var obj = JSON.parse(ev.data);
-         this.live = obj;
-      }.bind(this);
+      // ws.onmessage = function (ev) {
+      //    var obj = JSON.parse(ev.data);
+      //    this.live = obj;
+      // }.bind(this);
    },
    methods: {
       startFermentation() {
