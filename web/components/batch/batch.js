@@ -30,7 +30,9 @@ const batchComponent = Vue.extend({
             this.temps = temps;
          }.bind(this));
       }
-      var ws = new WebSocket('ws://brews.pandersson.net:40510');
+
+      const protocol = window.location.protocol === 'https:' ? 'wss' : 'ws';
+      var ws = new WebSocket(`${protocol}://${window.location.hostname}:40510`);
 
       ws.onmessage = function (ev) {
          var obj = JSON.parse(ev.data);
