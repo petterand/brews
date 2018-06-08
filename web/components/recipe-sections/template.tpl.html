@@ -28,7 +28,7 @@
             <span class="input-item-title">Batchstorlek:</span>
             <span class="short-field">{{ getRoundedValue(getRecipe.batchSize) }} L</span>
          </div>
-         <div class="input-item">
+         <div class="input-item" v-if="getRecipe.boilSize">
             <span class="input-item-title">Kokmängd:</span>
             <span class="short-field">{{getRoundedValue(getRecipe.boilSize, 0)}} L</span>
          </div>
