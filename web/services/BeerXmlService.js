@@ -121,13 +121,18 @@ function getFermentables(json) {
 function getHops(json) {
    var hops = [];
    json.forEach((hop) => {
+      var hopTime = parseInt(hop.TIME ? hop.TIME[0] : '');
+      const MIN_PER_DAY = 60 * 24;
+      if (hop.USE && hop.USE[0].toLowerCase() === 'dry hop' && hopTime < MIN_PER_DAY) {
+         hopTime = hopTime * MIN_PER_DAY;
+      }
       hops.push({
          name: hop.NAME ? hop.NAME[0] : '',
          version: hop.VERSION ? hop.VERSION[0] : '',
          alpha: hop.ALPHA ? hop.ALPHA[0] : '',
          amount: hop.AMOUNT ? hop.AMOUNT[0] : '',
          use: hop.USE ? hop.USE[0] : '',
-         time: parseInt(hop.TIME ? hop.TIME[0] : ''),
+         time: hopTime,
          form: hop.FORM ? hop.FORM[0] : ''
       })
    });

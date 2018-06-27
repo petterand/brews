@@ -1,8 +1,9 @@
 const Utils = {
-   srmToHex: srmToHex,
-   round10: round10,
-   minutesToDays: minutesToDays,
-   kgToGram: kgToGram
+   srmToHex,
+   round10,
+   minutesToDays,
+   kgToGram,
+   litreToMl
 };
 
 export default Utils;
@@ -52,4 +53,13 @@ function kgToGram(weight) {
       return weight;
    }
    return weight * 1000;
+}
+
+function litreToMl(litre) {
+   if (litre < 0.01) {
+      return `${litre * 1000}ml`;
+   } else if (litre < 0.1) {
+      return `${litre * 100}cl`;
+   }
+   return `${litre}l`;
 }

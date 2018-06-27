@@ -44,16 +44,16 @@ function formatMinutes(minutes) {
 
 function formatWeight(weight) {
    if (weight < 1) {
-      weight = Utils.kgToGram(weight) + ' g';
+      weight = getRoundedValue(Utils.kgToGram(weight)) + 'g';
    } else {
-      weight = weight + ' kg';
+      weight = weight + 'kg';
    }
 
    return weight;
 }
 
 function formatLiquid(amount) {
-   return `${getRoundedValue(amount, -3)}L`;
+   return Utils.litreToMl(getRoundedValue(amount, -3));
 }
 
 function deleteRecipe() {

@@ -121,6 +121,15 @@ module.exports = {
          time: 0,
          use: "Hop Stand",
          version: "1"
+      },
+      {
+         alpha: "5.5",
+         amount: "0.075",
+         form: "Pellet",
+         name: "Cascade",
+         time: 7200,
+         use: "Dry Hop",
+         version: "1"
       }
    ],
    yeasts: [

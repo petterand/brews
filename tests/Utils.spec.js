@@ -36,4 +36,10 @@ describe('Utils', () => {
          expect(Utils.kgToGram(1.25)).to.equal(1.25);
       });
    });
+
+   describe('litreToMl', () => {
+      it('should return 3ml if litre is 0.003', () => {
+         expect(Utils.litreToMl(0.003)).to.equal('3ml');
+      })
+   })
 });
