@@ -83,9 +83,14 @@ function onChangeBatch(e) {
    store.dispatch('selectBatchById', e.target.value);
 }
 
-function selectVersionAndFetchBatches() {
-   store.dispatch('selectRecipeVersion', store.getters.getLatestVersion);
-   store.dispatch('fetchRecipeBatches', store.state.selectedRecipe.id).then(batches => {
+function selectVersionAndFetchBatches(version) {
+   var recipeVersion = store.getters.getLatestVersion
+   if (version) {
+      recipeVersion = store.state.selectedRecipe.versions.find(v => v.version === version) || recipeVersion;
+   }
+
+   store.dispatch('selectRecipeVersion', recipeVersion);
+   store.dispatch('fetchRecipeBatches').then(batches => {
       store.dispatch('selectBatch', batches[0]);
    });
 }
@@ -120,6 +125,9 @@ const RecipeSectionsComponent = Vue.extend({
    watch: {
       recipe(val) {
          selectVersionAndFetchBatches();
+      },
+      selectedVersion(val) {
+         selectVersionAndFetchBatches(val);
       }
    },
    methods: {

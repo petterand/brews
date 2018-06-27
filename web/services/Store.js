@@ -48,7 +48,6 @@ const mutations = {
       Vue.set(state.recipes, index, recipe);
    },
    SELECT_RECIPE(state, recipe) {
-      //state.selectedRecipe = recipe;
       Vue.set(state, 'selectedRecipe', recipe)
    },
    SELECT_RECIPE_VERSION(state, version) {
@@ -142,9 +141,12 @@ const actions = {
    fetchAllBatches({ commit }) {
 
    },
-   fetchRecipeBatches({ commit }, recipeId) {
+   fetchRecipeBatches({ commit, state }) {
       return new Promise((resolve, reject) => {
-         BatchService.getBatches(recipeId).then(batches => {
+         const recipeId = state.selectedRecipe.id;
+         const recipeVersion = state.selectedRecipeVersion.version;
+
+         BatchService.getBatches(recipeId, recipeVersion).then(batches => {
             commit("RECIPE_BATCHES", batches);
             resolve(batches);
          }, err => {

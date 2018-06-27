@@ -5,6 +5,7 @@ const Schema = mongoose.Schema;
 const batchSchema = new Schema({
    id: { type: String, required: true },
    recipe_id: { type: String, required: true },
+   recipe_version: { type: Number, required: true },
    fermStart: { type: Number },
    fermStop: { type: Number },
    notes: { type: String },

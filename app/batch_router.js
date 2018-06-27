@@ -78,4 +78,12 @@ router.get('/:recipeId', (req, res) => {
    });
 })
 
+router.get('/:recipeId/:version', (req, res) => {
+   Batch.find({ recipe_id: req.params.recipeId, recipe_version: req.params.version }, { '_id': 0, '__v': 0 }).then(batches => {
+      res.status(200).send(batches);
+   }, err => {
+      res.status(500).send(err);
+   });
+})
+
 module.exports = router;

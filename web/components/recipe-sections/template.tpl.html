@@ -4,7 +4,7 @@
          <span class="fa fa-trash-o delete-icon" @click="deleteRecipe(getRecipe)" v-if="!editable && $store.state.isLoggedIn"></span>
          <span class="fa fa-edit edit-icon" @click="editRecipe" v-if="!editable && $store.state.isLoggedIn"></span>
       </h3>
-      <div class="grid-block grid-block_3">
+      <div class="grid-block grid-block_4">
 
          <div class="input-item" v-if="editable">
             <label for="name" class="input-item-title">Namn:</label>
@@ -13,6 +13,15 @@
          <div class="input-item" v-if="!editable">
             <span class="input-item-title">Namn:</span>
             <span>{{ getRecipe.name }}</span>
+         </div>
+
+         <div class="input-item" v-if="!editable">
+            <span class="input-item-title">Version:</span>
+            <span>
+               <select v-model="selectedVersion">
+                  <option v-for="v in recipe.versions" :value="v.version">{{v.version}}</option>
+               </select>
+            </span>
          </div>
 
          <div class="input-item">

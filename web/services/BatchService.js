@@ -1,8 +1,11 @@
 import Vue from 'vue';
 
 export default {
-   getBatches(recipeId) {
-      const url = recipeId ? `/api/batch/${recipeId}` : '/api/batch/';
+   getBatches(recipeId, version) {
+      let url = recipeId ? `/api/batch/${recipeId}` : '/api/batch/';
+      if (recipeId && version) {
+         url = `${url}/${version}`;
+      }
       return Vue.http.get(url).then(response => {
          return Promise.resolve(response.body);
       }, err => {
