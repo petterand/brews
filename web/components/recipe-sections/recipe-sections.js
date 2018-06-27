@@ -69,7 +69,8 @@ function editRecipe() {
 
 function createBatch() {
    const batch = {
-      recipe_id: this.recipe.id
+      recipe_id: this.recipe.id,
+      recipe_version: this.selectedVersion
    }
    BatchService.createBatch(batch).then(_batch => {
       store.dispatch('addBatch', _batch);

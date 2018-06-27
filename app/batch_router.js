@@ -9,7 +9,8 @@ router.post('/', isLoggedIn, (req, res) => {
       const batchId = `${newBatch.recipe_id}_${batches.length + 1}`;
       const batch = new Batch({
          id: batchId,
-         recipe_id: newBatch.recipe_id
+         recipe_id: newBatch.recipe_id,
+         recipe_version: newBatch.recipe_version
       });
       batch.save((err) => {
          if (err) { return res.status(500).send({ status: 'error', msg: err }); }
