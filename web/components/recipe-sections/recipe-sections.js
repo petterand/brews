@@ -4,11 +4,8 @@ import Utils from '../../services/Utils';
 import store from '../../services/Store';
 import router from '../../router';
 import BatchService from '../../services/BatchService';
-import Batch from '../../components/batch/batch';
+import EventHub from '../../services/EventHub';
 import SelectBox from '../../components/select/selectbox.vue';
-import moment from 'moment';
-import { parse } from 'url';
-
 
 function getPercent(fermentable, allFermentables) {
    var totalWeight = 0;
@@ -30,6 +27,7 @@ function getRoundedValue(value, exp) {
 
    return value;
 }
+
 
 function formatMinutes(minutes) {
    const MIN_PER_DAY = 60 * 24;
@@ -103,6 +101,9 @@ const RecipeSectionsComponent = Vue.extend({
       if (!this.$store.state.selectedRecipeVersion) {
          selectVersionAndFetchBatches()
       }
+      EventHub.$on('VERSION_ADDED', function () {
+         this.selectedVersion = this.recipe.latestVersionNumber;
+      }.bind(this));
    },
    data() {
       return {
@@ -127,8 +128,10 @@ const RecipeSectionsComponent = Vue.extend({
       recipe(val) {
          selectVersionAndFetchBatches();
       },
-      selectedVersion(val) {
-         selectVersionAndFetchBatches(val);
+      selectedVersion(version) {
+         if (version !== this.$store.state.selectedRecipeVersion.version) {
+            selectVersionAndFetchBatches(version);
+         }
       }
    },
    methods: {

@@ -78,7 +78,7 @@ router.put('/:id', isLoggedIn, (req, res) => {
       if (updatedRecipe.recipe) {
          if (updatedRecipe.update === 'new_version') {
             const versions = recipe.versions.map(v => JSON.parse(v)).map(v => parseInt(v.version));
-            const latestVersion = Math.max(versions);
+            const latestVersion = Math.max(...versions);
             updatedRecipe.recipe.version = latestVersion + 1;
             recipe.versions.push(JSON.stringify(updatedRecipe.recipe))
          } else if (updatedRecipe.update === 'replace') {

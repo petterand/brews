@@ -16,6 +16,7 @@
 
 <script>
 import FileDropArea from "../file-drop-area/FileDropArea.vue";
+import EventHub from "../../services/EventHub";
 
 export default {
   components: {
@@ -31,13 +32,20 @@ export default {
           recipe: this.updatedRecipe,
           version: parseInt(this.$store.state.selectedRecipeVersion.version)
         };
-        this.$store
-          .dispatch("replaceRecipeVersion", dispatchObject)
-          .then(res => {
+        this.$store.dispatch("replaceRecipeVersion", dispatchObject).then(
+          function() {
+            this.updatedRecipe = null;
             document.querySelector("#editRecipeDialog").close();
-          });
+          }.bind(this)
+        );
       } else if (this.updateOrVersion === "new_version") {
-        this.$store.dispatch("addRecipeVersion", this.updatedRecipe);
+        this.$store.dispatch("addRecipeVersion", this.updatedRecipe).then(
+          function() {
+            EventHub.$emit("VERSION_ADDED");
+            this.updatedRecipe = null;
+            document.querySelector("#editRecipeDialog").close();
+          }.bind(this)
+        );
       }
     }
   },
@@ -51,5 +59,4 @@ export default {
 </script>
 
 <style>
-
 </style>
