@@ -22,7 +22,7 @@ const AddBrewComponent = Vue.extend({
          }
       }
    },
-   data: function () {
+   data() {
       return {
          recipe: null
       }
