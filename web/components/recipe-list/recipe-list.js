@@ -7,7 +7,7 @@ var RecipeList = Vue.extend({
    components: {
       "recipe-list-item": RecipeListItem
    },
-   data: function () {
+   data() {
       return {
 
       }
