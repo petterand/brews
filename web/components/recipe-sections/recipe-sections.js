@@ -6,6 +6,7 @@ import router from '../../router';
 import BatchService from '../../services/BatchService';
 import EventHub from '../../services/EventHub';
 import SelectBox from '../../components/select/selectbox.vue';
+import Batch from '../../components/batch/batch';
 
 function getPercent(fermentable, allFermentables) {
    var totalWeight = 0;
