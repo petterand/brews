@@ -28,7 +28,6 @@ function getRoundedValue(value, exp) {
    return value;
 }
 
-
 function formatMinutes(minutes) {
    const MIN_PER_DAY = 60 * 24;
 
