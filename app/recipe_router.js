@@ -85,12 +85,15 @@ router.put('/:id', isLoggedIn, (req, res) => {
             if (!updatedRecipe.replaceVersion) {
                return res.status(400).send({ status: 'error', msg: 'missing version to replace' });
             }
-            const versions = recipe.versions.map(v => JSON.parse(v));
+            let versions = recipe.versions.map(v => JSON.parse(v));
             const indexToReplace = versions.findIndex(v => {
                return parseInt(v.version) === parseInt(updatedRecipe.replaceVersion);
             });
+
             updatedRecipe.recipe.version = updatedRecipe.replaceVersion;
-            versions[indexToReplace] = JSON.stringify(updatedRecipe.recipe);
+            versions[indexToReplace] = updatedRecipe.recipe;
+
+            versions = versions.map(v => JSON.stringify(v));
 
             recipe.versions = versions;
          }
