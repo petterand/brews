@@ -50,6 +50,36 @@ router.delete('/:id', isLoggedIn, (req, res) => {
    });
 });
 
+router.delete('/:id/:version', isLoggedIn, (req, res) => {
+   const recipeId = req.params.id;
+   const deleteVersion = req.params.version;
+
+   Recipe.findOne({ id: recipeId }, (err, recipe) => {
+      if (err) { return res.status(500).send({ status: 'error', msg: err }); }
+      const versions = recipe.versions
+         .map(v => JSON.parse(v))
+         .filter(v => v.version !== deleteVersion)
+         .map(v => JSON.stringify(v));
+
+      recipe.versions = versions;
+
+      recipe.save((err, r) => {
+         if (err) { return res.status(500).send({ status: 'error', msg: err }); }
+         const versions = r.versions.map(v => { return JSON.parse(v) });
+         const latestVersionNumber = Math.max(...versions.map(v => parseInt(v.version)));
+         const returnRecipe = {
+            id: r.id,
+            name: r.name,
+            versions,
+            latestVersionNumber
+         }
+         res.send({ status: 'updated', "recipe": returnRecipe });
+      });
+
+   })
+
+})
+
 // router.put('/all/updateVersions', (req, res) => {
 //    var promises = [];
 //    Recipe.find({}, (err, recipes) => {
