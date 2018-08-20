@@ -35,6 +35,7 @@ export default {
         this.$store.dispatch("replaceRecipeVersion", dispatchObject).then(
           function() {
             this.updatedRecipe = null;
+            this.updateOrVersion = "new_version";
             document.querySelector("#editRecipeDialog").close();
           }.bind(this)
         );
@@ -43,6 +44,7 @@ export default {
           function() {
             EventHub.$emit("VERSION_ADDED");
             this.updatedRecipe = null;
+            this.updateOrVersion = "new_version";
             document.querySelector("#editRecipeDialog").close();
           }.bind(this)
         );
