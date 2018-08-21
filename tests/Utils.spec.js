@@ -42,4 +42,21 @@ describe('Utils', () => {
          expect(Utils.litreToMl(0.003)).to.equal('3ml');
       })
    })
+
+   // describe('getExcelFromJsDate', () => {
+   //    it('should return 43332.80233 when 1534785322000 is passed', () => {
+   //       //1534785322000 js
+   //       //43332.80233230325 excel
+   //       expect(Utils.getExcelFromJsDate(1534785322000)).to.equal(43332.80233230325)
+   //    })
+   // })
+
+
+   // describe('getJsDateFromExcel', () => {
+   //    it('should return 1534785322000 when 43332.80233 is passed', () => {
+   //       //1534785322000 js
+   //       //43332.80233230325 excel
+   //       expect(Utils.getJsDateFromExcel(43332.80233230325)).to.equal(1534785322000);
+   //    })
+   // })
 });

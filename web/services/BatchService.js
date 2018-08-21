@@ -68,5 +68,16 @@ export default {
       }, err => {
          return Promise.reject(err);
       })
+   },
+   saveBrewfatherId(batchId, brewfatherId) {
+      return Vue.http.put(`/api/batch/${batchId}/brewfatherId`, { brewfatherId }).then(response => {
+         if (response.body.status === 'updated') {
+            return Promise.resolve(response.body.batch);
+         } else {
+            return Promise.reject();
+         }
+      }, err => {
+         return Promise.reject(err);
+      })
    }
 }

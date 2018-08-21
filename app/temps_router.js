@@ -1,7 +1,39 @@
 const router = require('express').Router();
 const Temp = require('./models/Temp');
 const Batch = require('./models/Batch');
+const Request = require('request-promise');
 
+function getExcelFromJsDate(timestamp) {
+   return (timestamp / (86400 * 1000)) + (25567 + 2);
+}
+
+function getJsDateFromExcel(excelDate) {
+   return new Date(Math.round((excelDate - (25567 + 2)) * 86400) * 1000).getTime();
+}
+
+function celsiusToFahrenheit(c) {
+   return Math.round(c * 9 / 5 + 32);
+}
+
+function postToBrewfather(celsiusTemp, gravity, beername) {
+   const url = 'http://log.brewfather.net/tilt?id=UAyOtxcHK618Hh';
+
+   const excelTime = getExcelFromJsDate(Date.now());
+   const fahrenheitTemp = celsiusToFahrenheit(celsiusTemp);
+
+   const data = {
+      SG: gravity,
+      Temp: fahrenheitTemp, // in fahrenheit
+      Color: 'RED', // valid tilt color
+      Timepoint: excelTime, // excel format
+      Beer: beername, // batch number
+      Comment: ''
+   }
+
+   Request.post(url, data).catch(() => {
+      console.log('Failed to send data to brewfather');
+   });
+}
 
 router.post('/', (req, res) => {
    Batch.findOne({
@@ -13,6 +45,8 @@ router.post('/', (req, res) => {
             gravity: req.body.SG,
             batch_id: batch.id
          });
+
+         postToBrewfather(req.body.Temp, req.body.SG, batch.brewfatherId);
 
          temp.save(function (err) {
             if (err) { console.log('ERR', err); res.end(); }

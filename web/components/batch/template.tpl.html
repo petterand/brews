@@ -39,8 +39,17 @@
    </div>
    <div>
       <h4>Temperatur och SG</h4>
-      <div v-if="fermentationStarted" class="right-content">
-         <a @click="stopFermentation" v-if="$store.state.isLoggedIn">Stoppa registrering</a>
+      <div id="temp-gravity-intro">
+         <div v-if="$store.state.isLoggedIn">
+            <label class="input-item-title">Brewfather id</label>
+            <div>
+               <input type="number" v-model="brewfatherId">
+               <button @click="saveBrewfatherId">Spara</button>
+            </div>
+         </div>
+         <div v-if="fermentationStarted">
+            <a @click="stopFermentation" v-if="$store.state.isLoggedIn">Stoppa registrering</a>
+         </div>
       </div>
       <div v-if="live && fermentationStarted" class="live-content">
          <p><span class="input-item-title">SG</span>{{live.SG}}</p>

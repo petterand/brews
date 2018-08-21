@@ -15,7 +15,8 @@ const batchSchema = new Schema({
    postboil_vol: { type: String },
    og: { type: String },
    fermentation_vol: { type: String },
-   fg: { type: String }
+   fg: { type: String },
+   brewfatherId: { type: Number }
 });
 
 const Batch = mongoose.model('Batch', batchSchema);

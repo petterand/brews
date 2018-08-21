@@ -31,6 +31,25 @@
          }
       }
    }
+   #temp-gravity-intro {
+      display: flex;
+      flex-direction: row;
+      div {
+         &:first-child {
+            display: flex;
+            flex-direction: column;
+            button {
+               padding: 0 8px;
+               margin-left: 8px;
+            }
+         }
+         &:last-child {
+            display: flex;
+            margin-left: auto;
+            margin-top: auto;
+         }
+      }
+   }
    .live-content {
       display: grid;
       grid-template-columns: repeat(3, 1fr);

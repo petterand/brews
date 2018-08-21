@@ -188,6 +188,12 @@ const actions = {
          commit("SELECT_BATCH", batch);
       });
    },
+   saveBrewfatherId({ commit, state }, brewfatherId) {
+      BatchService.saveBrewfatherId(state.selectedBatch.id, brewfatherId).then(batch => {
+         commit("UPDATE_BATCH", batch);
+         commit("SELECT_BATCH", batch);
+      });
+   },
    addRecipeVersion({ commit, state }, recipe) {
       const recipeDetails = {
          update: 'new_version',

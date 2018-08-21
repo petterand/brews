@@ -43,7 +43,6 @@ function round10(value, exp) {
 
 }
 
-
 function minutesToDays(min) {
    return min / (60 * 24);
 }

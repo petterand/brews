@@ -63,6 +63,13 @@ router.put('/:batchId/notes', isLoggedIn, (req, res) => {
    })
 });
 
+router.put('/:batchId/brewfatherId', isLoggedIn, (req, res) => {
+   Batch.findOneAndUpdate({ id: req.params.batchId }, { $set: { 'brewfatherId': req.body.brewfatherId } }, { new: true }, (err, batch) => {
+      if (err) { return res.status(500).send({ status: 'error', msg: err }) };
+      res.status(200).send({ status: 'updated', batch: batch });
+   })
+});
+
 router.get('/', (req, res) => {
    Batch.find({}, { '_id': 0, '__v': 0 }).then(batches => {
       res.status(200).send(batches);

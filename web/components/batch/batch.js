@@ -57,6 +57,9 @@ const batchComponent = Vue.extend({
       saveBatchNotes() {
          this.$store.dispatch('saveBatchNotes', this.notes);
       },
+      saveBrewfatherId() {
+         this.$store.dispatch('saveBrewfatherId', this.brewfatherId)
+      },
       formatDateTime
    },
    computed: {
@@ -92,6 +95,7 @@ const batchComponent = Vue.extend({
          temps: [],
          notes: this.$store.state.selectedBatch.notes,
          live: null,
+         brewfatherId: this.$store.state.selectedBatch.brewfatherId,
          measured_values: {
             mash_ph: this.$store.state.selectedBatch.mash_ph || (this.$store.state.isLoggedIn ? null : '-'),
             boil_vol: this.$store.state.selectedBatch.boil_vol || (this.$store.state.isLoggedIn ? null : '-'),
