@@ -22,15 +22,17 @@ function postToBrewfather(celsiusTemp, gravity, beername) {
    const fahrenheitTemp = celsiusToFahrenheit(celsiusTemp);
 
    const data = {
-      SG: gravity,
-      Temp: fahrenheitTemp, // in fahrenheit
+      SG: `${gravity}`,
+      Temp: `${fahrenheitTemp}`, // in fahrenheit
       Color: 'RED', // valid tilt color
-      Timepoint: excelTime, // excel format
-      Beer: beername, // batch number
+      Timepoint: `${excelTime}`, // excel format
+      Beer: `${beername}`, // batch number
       Comment: ''
    }
 
-   Request.post(url, data).catch(() => {
+   Request.post(url, data).then(() => {
+      console.log('Data sent to brewfather', data);
+   }).catch(() => {
       console.log('Failed to send data to brewfather');
    });
 }
