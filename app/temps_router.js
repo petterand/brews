@@ -30,10 +30,17 @@ function postToBrewfather(celsiusTemp, gravity, beername) {
       Comment: ''
    }
 
-   Request.post(url, data).then(() => {
-      console.log('Data sent to brewfather', data);
-   }).catch(() => {
-      console.log('Failed to send data to brewfather');
+   const options = {
+      method: 'POST',
+      uri: url,
+      body:  data,
+      json: true
+   };
+
+   Request(options).then((body) => {
+      console.log('Data sent to brewfather', data, body);
+   }).catch((e) => {
+      console.log('Failed to send data to brewfather', e);
    });
 }
 
