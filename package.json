@@ -16,7 +16,7 @@
       "passport": "^0.4.0",
       "passport-local": "^1.0.0",
       "request-promise": "^4.2.2",
-      "ws": "^5.2.0"
+      "ws": "^7.4.6"
    },
    "devDependencies": {
       "babel-core": "^6.26.3",
